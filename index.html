@@ -472,9 +472,18 @@ function sendForm(){
   else if(lb==="med"||li==="med")conseilTxt="Une journée de formation suffit pour installer des réflexes durables là où vous en avez besoin.";
   else conseilTxt="La formation Construction d'agent vous permettra de connecter vos outils, déployer un agent métier et automatiser des scénarios complexes sans coder.";
 
-  // Réponses détaillées
-  const bLines=QS.slice(0,5).map((q,i)=>"Q"+(i+1)+" — "+q.q+"\n        Réponse : "+(ans[i]!==null?q.o[ans[i]].l:"Non renseigné")).join("\n\n        ");
-  const iLines=QS.slice(5,10).map((q,i)=>"Q"+(i+1)+" — "+q.q+"\n        Réponse : "+(ans[i+5]!==null?q.o[ans[i+5]].l:"Non renseigné")).join("\n\n        ");
+  // Réponses détaillées avec score individuel
+  function scoreLbl(s){return s===0?"✓ Maîtrisé":s===1?"△ Partiel":s===2?"✗ Faible":"✗✗ Non maîtrisé";}
+  const bLines=QS.slice(0,5).map((q,i)=>{
+    const a=ans[i];
+    const sc=a!==null?q.o[a].s:null;
+    return "Q"+(i+1)+" — "+q.q+"\n        Réponse   : "+(a!==null?q.o[a].l:"Non renseigné")+"\n        Niveau    : "+(sc!==null?scoreLbl(sc):"—");
+  }).join("\n\n        ");
+  const iLines=QS.slice(5,10).map((q,i)=>{
+    const a=ans[i+5];
+    const sc=a!==null?q.o[a].s:null;
+    return "Q"+(i+1)+" — "+q.q+"\n        Réponse   : "+(a!==null?q.o[a].l:"Non renseigné")+"\n        Niveau    : "+(sc!==null?scoreLbl(sc):"—");
+  }).join("\n\n        ");
 
   // Corps du mail en texte structuré (Formspree l'envoie tel quel)
   const mailBody=
