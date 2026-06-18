@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DAN-IA · Évaluation de vos besoins en formation</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -220,7 +220,7 @@ textarea.contact-input{resize:vertical;min-height:80px}
 </div>
 
 <script>
-emailjs.init("TGnxhkKfjTpGZ90Np");
+const FORMSPREE = "https://formspree.io/f/maqzgyqb";
 
 const QS=[
   {t:"b",q:"Comment organisez-vous vos fichiers et dossiers au quotidien ?",o:[
@@ -454,7 +454,6 @@ function sendContact(){
   if(!name){errEl.textContent="Veuillez saisir votre nom.";errEl.style.display="block";return;}
   if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){errEl.textContent="Veuillez saisir une adresse email valide.";errEl.style.display="block";return;}
 
-  // Build detailed answers
   const burLines=QS.slice(0,10).map((q,i)=>{
     const a=ans[i];
     return (i+1)+". "+q.q+"\n   Réponse : "+(a!==null?q.o[a].l:"Sans réponse");
@@ -467,21 +466,32 @@ function sendContact(){
   const btn=document.getElementById("c-btn");
   btn.disabled=true; btn.textContent="Envoi en cours…";
 
-  emailjs.send("service_cpg33ll","template_czd3q6d",{
-    to_email:"dbenouaisch@gmail.com",
-    reply_to:email,
-    from_name:name,
-    from_email:email,
-    score_bureau:gSb+"%",
-    score_ia:gSi+"%",
-    conseil:gConseil,
-    note:note||"Aucune note",
-    reponses_bureau:burLines,
-    reponses_ia:iaLines
-  }).then(()=>{
-    document.getElementById("contact-form").style.display="none";
-    document.getElementById("c-ok").style.display="block";
-  }).catch(()=>{
+  fetch(FORMSPREE, {
+    method:"POST",
+    headers:{"Content-Type":"application/json","Accept":"application/json"},
+    body: JSON.stringify({
+      _replyto: email,
+      _subject: "Nouveau lead QCM DAN-IA — "+name,
+      Nom: name,
+      Email: email,
+      "Score Bureautique": gSb+"%",
+      "Score IA au quotidien": gSi+"%",
+      "Conseil personnalisé": gConseil,
+      "Note / sujet spécifique": note||"Aucune note",
+      "Réponses Bureautique": burLines,
+      "Réponses IA au quotidien": iaLines
+    })
+  })
+  .then(r=>r.json())
+  .then(data=>{
+    if(data.ok){
+      document.getElementById("contact-form").style.display="none";
+      document.getElementById("c-ok").style.display="block";
+    } else {
+      throw new Error(data.error||"Erreur inconnue");
+    }
+  })
+  .catch(()=>{
     btn.disabled=false; btn.textContent="Envoyer mes résultats et être recontacté(e) →";
     errEl.textContent="Une erreur est survenue. Réessayez ou écrivez directement à dbenouaisch@gmail.com";
     errEl.style.display="block";
