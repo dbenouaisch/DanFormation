@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QCM DAN-IA – Évaluation de vos besoins en formation</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f5f7fa; color: #1a1a2e; min-height: 100vh; }
+
+  /* Header */
+  .header { background: #1a1a2e; color: #fff; padding: 2rem 2rem 1.5rem; text-align: center; }
+  .header .brand { font-size: 13px; letter-spacing: 2px; color: #8ecae6; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .header h1 { font-size: 26px; font-weight: 700; margin-bottom: 0.4rem; }
+  .header p { font-size: 14px; color: #b0c4de; }
+
+  /* Progress */
+  .progress-bar-wrap { background: #e0e7ef; height: 6px; }
+  .progress-bar { height: 6px; background: linear-gradient(90deg, #0077b6, #00b4d8); transition: width 0.4s ease; }
+
+  /* Container */
+  .container { max-width: 780px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* Phase label */
+  .phase-label { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 1rem; }
+  .phase-bureau { background: #e0f4fd; color: #0077b6; }
+  .phase-ia { background: #ede9fe; color: #5b21b6; }
+  .phase-result { background: #d1fae5; color: #065f46; }
+
+  /* Question card */
+  .q-card { background: #fff; border-radius: 12px; padding: 1.5rem 1.75rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #0077b6; }
+  .q-card.ia-theme { border-left-color: #7c3aed; }
+  .q-number { font-size: 11px; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.4rem; }
+  .q-text { font-size: 15px; font-weight: 600; color: #1a1a2e; margin-bottom: 1rem; line-height: 1.5; }
+
+  /* Options */
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 8px; border: 1.5px solid #e2e8f0; cursor: pointer; transition: all 0.15s; font-size: 14px; color: #334155; }
+  .option:hover { border-color: #0077b6; background: #f0f9ff; }
+  .option.selected { border-color: #0077b6; background: #e0f4fd; color: #0077b6; font-weight: 600; }
+  .option.ia-theme.selected { border-color: #7c3aed; background: #ede9fe; color: #5b21b6; }
+  .option input[type="radio"] { accent-color: #0077b6; width: 16px; height: 16px; flex-shrink: 0; }
+  .option.ia-theme input[type="radio"] { accent-color: #7c3aed; }
+
+  /* Navigation */
+  .nav { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; }
+  .btn { padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: all 0.15s; }
+  .btn-primary { background: #0077b6; color: #fff; }
+  .btn-primary:hover { background: #005f92; }
+  .btn-ia { background: #7c3aed; color: #fff; }
+  .btn-ia:hover { background: #6028cc; }
+  .btn-result { background: #059669; color: #fff; }
+  .btn-result:hover { background: #047857; }
+  .btn-ghost { background: transparent; color: #64748b; border: 1.5px solid #e2e8f0; }
+  .btn-ghost:hover { background: #f8fafc; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .step-info { font-size: 13px; color: #94a3b8; }
+
+  /* Results */
+  #result-section { display: none; }
+  .result-top { background: #fff; border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; }
+  .result-top h2 { font-size: 22px; font-weight: 700; margin-bottom: 0.5rem; color: #1a1a2e; }
+  .result-top p { font-size: 14px; color: #64748b; }
+
+  .scores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0 0; }
+  @media(max-width:560px){ .scores-grid { grid-template-columns: 1fr; } }
+
+  .score-card { border-radius: 12px; padding: 1.25rem 1.5rem; text-align: center; }
+  .score-card.bureau { background: #e0f4fd; }
+  .score-card.ia { background: #ede9fe; }
+  .score-card .score-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.4rem; }
+  .score-card.bureau .score-label { color: #0077b6; }
+  .score-card.ia .score-label { color: #7c3aed; }
+  .score-card .score-pct { font-size: 48px; font-weight: 800; line-height: 1; margin-bottom: 0.3rem; }
+  .score-card.bureau .score-pct { color: #0077b6; }
+  .score-card.ia .score-pct { color: #7c3aed; }
+  .score-card .score-sub { font-size: 12px; color: #64748b; }
+
+  /* Gauge */
+  .gauge-wrap { margin: 0.6rem 0 0.3rem; height: 8px; background: rgba(255,255,255,0.6); border-radius: 99px; overflow: hidden; }
+  .gauge-fill { height: 100%; border-radius: 99px; transition: width 1s ease; }
+  .gauge-fill.bureau { background: #0077b6; }
+  .gauge-fill.ia { background: #7c3aed; }
+
+  /* Theme detail cards */
+  .theme-card { background: #fff; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .theme-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 8px; }
+  .theme-badge { font-size: 11px; padding: 2px 10px; border-radius: 20px; font-weight: 700; }
+  .badge-high { background: #d1fae5; color: #065f46; }
+  .badge-medium { background: #fef3c7; color: #92400e; }
+  .badge-low { background: #f1f5f9; color: #475569; }
+  .theme-card p { font-size: 13px; color: #475569; line-height: 1.6; margin-bottom: 0.8rem; }
+  .apports { list-style: none; }
+  .apports li { font-size: 13px; color: #1a1a2e; padding: 5px 0 5px 22px; position: relative; border-bottom: 1px solid #f1f5f9; }
+  .apports li:last-child { border-bottom: none; }
+  .apports li::before { content: "→"; position: absolute; left: 0; color: #0077b6; font-weight: 700; }
+  .theme-card.ia-card .apports li::before { color: #7c3aed; }
+
+  /* Conseil */
+  .conseil-card { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; border-radius: 16px; padding: 1.75rem; margin-bottom: 1.5rem; }
+  .conseil-card .conseil-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #8ecae6; margin-bottom: 0.75rem; font-weight: 700; }
+  .conseil-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 0.75rem; }
+  .conseil-card p { font-size: 14px; line-height: 1.7; color: #b0c4de; }
+
+  /* CTA */
+  .cta-card { background: #fff; border-radius: 12px; padding: 1.25rem 1.5rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); font-size: 13px; color: #64748b; }
+  .cta-card a { color: #0077b6; font-weight: 700; text-decoration: none; }
+  .cta-card a:hover { text-decoration: underline; }
+
+  /* Restart */
+  .btn-restart { display: block; margin: 1.5rem auto 0; background: transparent; border: 1.5px solid #e2e8f0; color: #94a3b8; font-size: 13px; padding: 8px 20px; border-radius: 8px; cursor: pointer; }
+  .btn-restart:hover { background: #f8fafc; color: #64748b; }
+
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="brand">DAN-IA · Formations</div>
+  <h1>Évaluation de vos besoins en formation</h1>
+  <p>10 questions par thème · Résultat immédiat · 5 minutes</p>
+</div>
+<div class="progress-bar-wrap"><div class="progress-bar" id="progress-bar" style="width:0%"></div></div>
+
+<div class="container">
+
+  <!-- QCM SECTION -->
+  <div id="qcm-section">
+    <div id="phase-label" class="phase-label phase-bureau">📁 Thème 1 — Bureautique</div>
+    <div id="q-card" class="q-card">
+      <div class="q-number" id="q-number"></div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="options"></div>
+    </div>
+    <div class="nav">
+      <button class="btn btn-ghost" id="btn-prev" onclick="prevQ()">← Précédent</button>
+      <span class="step-info" id="step-info"></span>
+      <button class="btn btn-primary" id="btn-next" onclick="nextQ()" disabled>Suivant →</button>
+    </div>
+  </div>
+
+  <!-- RESULT SECTION -->
+  <div id="result-section">
+    <div class="phase-label phase-result">✅ Résultats de votre évaluation</div>
+
+    <div class="result-top">
+      <h2 id="result-title"></h2>
+      <p id="result-subtitle"></p>
+      <div class="scores-grid">
+        <div class="score-card bureau">
+          <div class="score-label">📁 Bureautique</div>
+          <div class="score-pct" id="score-bureau">—</div>
+          <div class="gauge-wrap"><div class="gauge-fill bureau" id="gauge-bureau" style="width:0%"></div></div>
+          <div class="score-sub" id="label-bureau"></div>
+        </div>
+        <div class="score-card ia">
+          <div class="score-label">🤖 IA au quotidien</div>
+          <div class="score-pct" id="score-ia">—</div>
+          <div class="gauge-wrap"><div class="gauge-fill ia" id="gauge-ia" style="width:0%"></div></div>
+          <div class="score-sub" id="label-ia"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="conseil-card">
+      <div class="conseil-label">💡 Conseil personnalisé</div>
+      <h3 id="conseil-titre"></h3>
+      <p id="conseil-texte"></p>
+    </div>
+
+    <div id="detail-bureau" class="theme-card"></div>
+    <div id="detail-ia" class="theme-card ia-card"></div>
+
+    <div class="cta-card">
+      Intéressé(e) ? Contactez Dan Benouaisch pour un devis en 24 h :<br>
+      <a href="mailto:dbenouaisch@gmail.com">dbenouaisch@gmail.com</a> · <a href="https://dan-ia.fr" target="_blank">dan-ia.fr</a>
+    </div>
+
+    <button class="btn-restart" onclick="restart()">↺ Recommencer l'évaluation</button>
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  // --- BUREAUTIQUE (index 0-9) ---
+  {
+    theme: "bureau",
+    text: "Comment organisez-vous vos fichiers et dossiers au quotidien ?",
+    options: [
+      { label: "Je retrouve tout facilement grâce à une arborescence claire", score: 0 },
+      { label: "Je sais où aller mais parfois je perds du temps à chercher", score: 1 },
+      { label: "Je pose souvent les fichiers sur le bureau ou dans les téléchargements", score: 2 },
+      { label: "Je n'ai pas vraiment de méthode, c'est souvent le bazar", score: 3 }
+    ]
+  },
+  {
+    theme: "bureau",
+    text: "Quelle est votre maîtrise de la messagerie professionnelle (règles, filtres, signatures, dossiers) ?",
+    options: [
+      { label: "Je maîtrise tout : règles automatiques, filtres, modèles", score: 0 },
+      { label: "J'utilise quelques fonctions de base", score: 1 },
+      { label: "Je lis et réponds aux e-mails, c'est tout", score: 2 },
+      { label: "Je me sens dépassé(e) par le volume de messages", score: 3 }
+    ]
+  },
+  {
+    theme: "bureau",
+    text: "Sur un tableur (Excel, Google Sheets…), vous savez utiliser :",
+    options: [
+      { label: "Les formules avancées, tableaux croisés dynamiques, graphiques", score: 0 },
+      { label: "SOMME, MOYENNE et quelques formules simples", score: 1 },
+      { label: "La saisie et la mise en forme de base", score: 2 },
+      { label: "Très peu, j'évite le tableur dès que possible", score: 3 }
+    ]
+  },
+  {
+    theme: "bureau",
+    text: "Avez-vous déjà créé un tableau de bord pour suivre des indicateurs (chiffre d'affaires, tâches, stocks…) ?",
+    options: [
+      { label: "Oui, régulièrement et avec des graphiques dynamiques", score: 0 },
+      { label: "Oui, simplement, avec des totaux et couleurs", score: 1 },
+      { label: "J'ai essayé mais ça me prend trop de temps", score: 2 },
+      { label: "Non, je ne sais pas par où commencer", score: 3 }
+    ]
+  },
+  {
+    theme: "bureau",
+    text: "Comment gérez-vous vos présentations professionnelles (PowerPoint, Google Slides…) ?",
+    options: [
+      { label: "Je crée des présentations soignées avec un vrai design", score: 0 },
+      { label: "Je fais des diapositives correctes avec texte et images", score: 1 },
+      { label: "Mes slides sont basiques, je ne suis pas à l'aise", score: 2 },
+      { label: "Je délègue ou j'évite de faire des présentations", score: 3 }
+    ]
+  },
+  {
+    theme: "bureau",
+    text: "Utilisez-vous des outils collaboratifs cloud (OneDrive, SharePoint, Google Drive, Teams…) ?",
+    options: [
+      { label: "Oui, je partage, co-édite et gère les droits d'accès", score: 0 },
+      { label: "Oui, pour stocker et partager des fichiers basiquement", score: 1 },
+      { label: "Rarement, je préfère envoyer des pièces jointes par e-mail", score: 2 },
+      { label: "Non, je ne sais pas vraiment comment ça fonctionne", score: 3 }
+    ]
+  },
+  {
+    theme: "bureau",
+    text: "Combien de temps perdez-vous en moyenne à chercher un fichier ou une information par jour ?",
+    options: [
+      { label: "Moins de 5 minutes, mon organisation est efficace", score: 0 },
+      { label: "Entre 5 et 15 minutes", score: 1 },
+      { label: "Entre 15 et 30 minutes", score: 2 },
+      { label: "Plus de 30 minutes, c'est un vrai problème", score: 3 }
+    ]
+  },
+  {
+    theme: "bureau",
+    text: "Êtes-vous capable de créer une formule qui combine plusieurs conditions dans un tableur (SI, RECHERCHEV, INDEX/EQUIV…) ?",
+    options: [
+      { label: "Oui, sans problème et je les imbrique si besoin", score: 0 },
+      { label: "Oui pour les formules simples, moins pour les imbriquées", score: 1 },
+      { label: "J'ai du mal, je cherche souvent sur Google", score: 2 },
+      { label: "Non, je ne connais pas ces formules", score: 3 }
+    ]
+  },
+  {
+    theme: "bureau",
+    text: "Comment gérez-vous le suivi de vos tâches et projets au quotidien ?",
+    options: [
+      { label: "Avec un outil dédié ou un tableau de bord structuré", score: 0 },
+      { label: "Avec un fichier ou une liste simple", score: 1 },
+      { label: "Dans ma tête ou sur des post-it", score: 2 },
+      { label: "Je n'ai pas de méthode, des choses passent parfois à la trappe", score: 3 }
+    ]
+  },
+  {
+    theme: "bureau",
+    text: "Avez-vous déjà automatisé une tâche répétitive bureautique (sans coder) — par exemple une macro, un modèle automatique, une règle de messagerie complexe ?",
+    options: [
+      { label: "Oui, régulièrement, ça me fait gagner beaucoup de temps", score: 0 },
+      { label: "Une ou deux fois, de manière basique", score: 1 },
+      { label: "Non mais j'aimerais savoir comment faire", score: 2 },
+      { label: "Non, je ne savais même pas que c'était possible", score: 3 }
+    ]
+  },
+
+  // --- IA AU QUOTIDIEN (index 10-19) ---
+  {
+    theme: "ia",
+    text: "Utilisez-vous un outil d'IA générative (ChatGPT, Copilot, Gemini…) dans votre travail ?",
+    options: [
+      { label: "Oui, tous les jours, c'est un outil clé de mon quotidien", score: 0 },
+      { label: "Oui, quelques fois par semaine pour certaines tâches", score: 1 },
+      { label: "J'ai testé une ou deux fois mais pas pris l'habitude", score: 2 },
+      { label: "Non, je n'en utilise pas", score: 3 }
+    ]
+  },
+  {
+    theme: "ia",
+    text: "Savez-vous rédiger un 'prompt' efficace pour obtenir un résultat précis et utilisable directement ?",
+    options: [
+      { label: "Oui, j'adapte le ton, le format et le contexte selon le besoin", score: 0 },
+      { label: "Je pose des questions simples et retravaille le résultat", score: 1 },
+      { label: "Je ne sais pas vraiment comment formuler pour avoir un bon résultat", score: 2 },
+      { label: "Je ne connais pas le concept de prompt", score: 3 }
+    ]
+  },
+  {
+    theme: "ia",
+    text: "Avez-vous utilisé l'IA pour rédiger ou améliorer des documents professionnels (e-mails, rapports, propositions commerciales…) ?",
+    options: [
+      { label: "Oui, c'est une partie intégrante de ma façon de rédiger", score: 0 },
+      { label: "Quelques fois, surtout pour corriger ou reformuler", score: 1 },
+      { label: "Non, mais j'y pense souvent", score: 2 },
+      { label: "Non, je fais tout moi-même sans aide IA", score: 3 }
+    ]
+  },
+  {
+    theme: "ia",
+    text: "Avez-vous déjà utilisé l'IA pour analyser un document, un tableau ou extraire des informations clés ?",
+    options: [
+      { label: "Oui, régulièrement pour des synthèses ou analyses de données", score: 0 },
+      { label: "Oui, une ou deux fois avec des résultats intéressants", score: 1 },
+      { label: "Non, je ne savais pas que c'était possible", score: 2 },
+      { label: "Non et ça ne m'inspire pas confiance", score: 3 }
+    ]
+  },
+  {
+    theme: "ia",
+    text: "Connaissez-vous les risques liés à l'usage de l'IA en entreprise (données confidentielles, RGPD, hallucinations…) ?",
+    options: [
+      { label: "Oui, j'ai des pratiques établies pour utiliser l'IA en sécurité", score: 0 },
+      { label: "J'en ai entendu parler mais je ne suis pas sûr(e) de mes pratiques", score: 1 },
+      { label: "Peu, j'utilise sans trop me poser de questions", score: 2 },
+      { label: "Non, je ne vois pas quels risques ça pose", score: 3 }
+    ]
+  },
+  {
+    theme: "ia",
+    text: "Utilisez-vous l'IA pour faire de la veille ou de la recherche d'information sur vos sujets métier ?",
+    options: [
+      { label: "Oui, c'est ma principale façon de me tenir informé(e)", score: 0 },
+      { label: "Parfois, pour compléter une recherche classique", score: 1 },
+      { label: "Non, je préfère Google ou mes sources habituelles", score: 2 },
+      { label: "Non, je ne fais pas vraiment de veille", score: 3 }
+    ]
+  },
+  {
+    theme: "ia",
+    text: "Avez-vous déjà automatisé une tâche avec un outil no-code (Zapier, Make, Power Automate…) ?",
+    options: [
+      { label: "Oui, j'ai plusieurs automatisations en production", score: 0 },
+      { label: "J'ai testé un scénario simple", score: 1 },
+      { label: "Non mais j'aimerais apprendre", score: 2 },
+      { label: "Non et je ne vois pas comment ça s'appliquerait à mon travail", score: 3 }
+    ]
+  },
+  {
+    theme: "ia",
+    text: "Utilisez-vous l'IA dans votre relation client (réponses, suivi, personnalisation des messages…) ?",
+    options: [
+      { label: "Oui, systématiquement pour personnaliser mes échanges", score: 0 },
+      { label: "Parfois pour reformuler ou adapter un message", score: 1 },
+      { label: "Non, je préfère écrire moi-même à mes clients", score: 2 },
+      { label: "Non, je ne vois pas comment l'IA pourrait m'aider là-dedans", score: 3 }
+    ]
+  },
+  {
+    theme: "ia",
+    text: "Comment évaluez-vous la qualité et la fiabilité des réponses générées par une IA ?",
+    options: [
+      { label: "Je sais repérer les erreurs et j'ai des méthodes de vérification", score: 0 },
+      { label: "Je relis et corrige mais je ne vérifie pas toujours les sources", score: 1 },
+      { label: "Je fais souvent confiance au résultat sans vérifier", score: 2 },
+      { label: "Je ne sais pas comment juger si c'est fiable", score: 3 }
+    ]
+  },
+  {
+    theme: "ia",
+    text: "En moyenne, combien d'heures par semaine estimez-vous passer sur des tâches répétitives à faible valeur ajoutée (copier-coller, recherches, reformulations…) ?",
+    options: [
+      { label: "Moins de 2 heures, j'ai déjà optimisé ma façon de travailler", score: 0 },
+      { label: "Entre 2 et 5 heures", score: 1 },
+      { label: "Entre 5 et 10 heures", score: 2 },
+      { label: "Plus de 10 heures, c'est une vraie source de frustration", score: 3 }
+    ]
+  }
+];
+
+let current = 0;
+let answers = new Array(questions.length).fill(null);
+
+function renderQ() {
+  const q = questions[current];
+  const isIA = q.theme === "ia";
+  const total = questions.length;
+  const pct = Math.round((current / total) * 100);
+
+  document.getElementById("progress-bar").style.width = pct + "%";
+
+  const label = document.getElementById("phase-label");
+  if (isIA) {
+    label.textContent = "🤖 Thème 2 — IA au quotidien";
+    label.className = "phase-label phase-ia";
+  } else {
+    label.textContent = "📁 Thème 1 — Bureautique";
+    label.className = "phase-label phase-bureau";
+  }
+
+  const themeIndex = isIA ? current - 10 : current;
+  document.getElementById("q-number").textContent = `Question ${themeIndex + 1} / 10`;
+  document.getElementById("q-text").textContent = q.text;
+
+  const card = document.getElementById("q-card");
+  card.className = "q-card" + (isIA ? " ia-theme" : "");
+
+  const btn = document.getElementById("btn-next");
+  btn.className = "btn " + (isIA ? "btn-ia" : "btn-primary");
+  const isLast = current === total - 1;
+  btn.textContent = isLast ? "Voir mes résultats ✓" : "Suivant →";
+  btn.className = "btn " + (isLast ? "btn-result" : (isIA ? "btn-ia" : "btn-primary"));
+
+  const opts = document.getElementById("options");
+  opts.innerHTML = "";
+  q.options.forEach((opt, i) => {
+    const div = document.createElement("label");
+    div.className = "option" + (isIA ? " ia-theme" : "") + (answers[current] === i ? " selected" : "");
+    div.innerHTML = `<input type="radio" name="q${current}" value="${i}" ${answers[current] === i ? "checked" : ""}> ${opt.label}`;
+    div.addEventListener("click", () => selectOpt(i));
+    opts.appendChild(div);
+  });
+
+  document.getElementById("btn-prev").disabled = current === 0;
+  document.getElementById("btn-next").disabled = answers[current] === null;
+  document.getElementById("step-info").textContent = `${current + 1} / ${total}`;
+}
+
+function selectOpt(i) {
+  answers[current] = i;
+  document.querySelectorAll(".option").forEach((el, idx) => {
+    el.classList.toggle("selected", idx === i);
+  });
+  document.getElementById("btn-next").disabled = false;
+}
+
+function nextQ() {
+  if (answers[current] === null) return;
+  if (current < questions.length - 1) {
+    current++;
+    renderQ();
+  } else {
+    showResults();
+  }
+}
+
+function prevQ() {
+  if (current > 0) { current--; renderQ(); }
+}
+
+function computeScore(theme) {
+  const qs = questions.filter((q, i) => q.theme === theme).map((q, i) => {
+    const globalIdx = theme === "bureau" ? i : i + 10;
+    return answers[globalIdx] !== null ? q.options[answers[globalIdx]].score : 0;
+  });
+  const total = qs.reduce((a, b) => a + b, 0);
+  const max = qs.length * 3;
+  return Math.round((total / max) * 100);
+}
+
+function getLevel(score) {
+  if (score >= 70) return "high";
+  if (score >= 35) return "medium";
+  return "low";
+}
+
+function getLevelLabel(score) {
+  if (score >= 70) return "Fort besoin de formation";
+  if (score >= 35) return "Besoin partiel identifié";
+  return "Bonne maîtrise actuelle";
+}
+
+function getBadgeClass(level) {
+  return { high: "badge-high", medium: "badge-medium", low: "badge-low" }[level];
+}
+
+function showResults() {
+  document.getElementById("qcm-section").style.display = "none";
+  document.getElementById("result-section").style.display = "block";
+  document.getElementById("progress-bar").style.width = "100%";
+  document.getElementById("phase-label").style.display = "none";
+
+  const sb = computeScore("bureau");
+  const si = computeScore("ia");
+  const avg = Math.round((sb + si) / 2);
+
+  setTimeout(() => {
+    document.getElementById("score-bureau").textContent = sb + "%";
+    document.getElementById("gauge-bureau").style.width = sb + "%";
+    document.getElementById("score-ia").textContent = si + "%";
+    document.getElementById("gauge-ia").style.width = si + "%";
+  }, 200);
+
+  document.getElementById("label-bureau").textContent = getLevelLabel(sb);
+  document.getElementById("label-ia").textContent = getLevelLabel(si);
+
+  // Titre général
+  let titre, sub;
+  if (avg >= 65) {
+    titre = "Votre potentiel de progression est élevé";
+    sub = "Les formations DAN-IA vous apporteront des gains concrets et mesurables dès les premières semaines.";
+  } else if (avg >= 35) {
+    titre = "Vous avez des bases solides à renforcer";
+    sub = "Certains modules ciblés vous permettront d'accélérer significativement votre efficacité.";
+  } else {
+    titre = "Vous êtes déjà bien équipé(e)";
+    sub = "Votre niveau est bon — des formations avancées peuvent vous aider à aller encore plus loin.";
+  }
+  document.getElementById("result-title").textContent = titre;
+  document.getElementById("result-subtitle").textContent = sub;
+
+  // Conseil
+  buildConseil(sb, si);
+
+  // Détail Bureautique
+  buildDetail("bureau", sb);
+  buildDetail("ia", si);
+}
+
+function buildConseil(sb, si) {
+  let titre, texte;
+  const lbur = getLevel(sb);
+  const lia = getLevel(si);
+
+  if (lbur === "high" && lia === "high") {
+    titre = "Le Pack Transformation est fait pour vous";
+    texte = "Vos résultats montrent des opportunités d'amélioration significatives sur les deux thèmes. Le Pack Transformation 3 jours (Bureautique + IA + Construction d'agent) vous permettra de transformer vos pratiques en profondeur. Pour une PME, cela représente jusqu'à 6 h utiles récupérées par jour. Finançable OPCO.";
+  } else if (lbur === "high" && lia !== "high") {
+    titre = "Commencez par la formation Bureautique";
+    texte = "Votre organisation et vos outils bureautiques laissent une marge de progression importante. La formation Bureautique d'une journée vous donnera des réflexes immédiats sur l'organisation de fichiers, le tableur et les tableaux de bord. Complétez ensuite avec la formation IA pour un effet multiplicateur.";
+  } else if (lbur !== "high" && lia === "high") {
+    titre = "La formation IA au quotidien est votre priorité";
+    texte = "Vous maîtrisez votre environnement bureautique — c'est un excellent point de départ. La formation IA au quotidien vous permettra de décupler votre efficacité : rédaction augmentée, automatisation no-code, usage sécurisé. Les gains de productivité les plus forts (jusqu'à +35 %) concernent exactement les profils comme le vôtre.";
+  } else if (lbur === "medium" || lia === "medium") {
+    titre = "Des formations ciblées pour combler vos lacunes";
+    texte = "Vous avez de bonnes bases mais certains modules vous feront gagner un temps précieux. Une journée de formation suffit souvent pour installer des réflexes durables. Identifiez les thèmes où vous perdez le plus de temps et commencez par là — le ROI est immédiat.";
+  } else {
+    titre = "Vous êtes prêt(e) pour le niveau avancé";
+    texte = "Votre maîtrise des outils bureautiques et IA est déjà solide. La formation Construction d'agent vous permettra de franchir un nouveau palier : connecter vos outils entre eux, déployer votre premier agent métier et automatiser des scénarios complexes sans coder. C'est le levier de transformation le plus puissant.";
+  }
+
+  document.getElementById("conseil-titre").textContent = titre;
+  document.getElementById("conseil-texte").textContent = texte;
+}
+
+const apportsBureau = [
+  "Arborescence claire et gain de temps quotidien pour retrouver vos fichiers",
+  "Messagerie maîtrisée : règles automatiques, filtres, zéro e-mail perdu",
+  "Formules tableur opérationnelles : SI, RECHERCHEV, tableaux croisés",
+  "Tableau de bord dynamique créé sur vos propres données",
+  "Présentations professionnelles et percutantes en moins de temps",
+  "Collaboration cloud fluide : partage, co-édition, gestion des droits",
+  "Automatisation de tâches répétitives sans coder",
+  "Méthode de suivi des tâches et projets fiable et reproductible"
+];
+
+const apportsIA = [
+  "Prompts efficaces adaptés à chaque situation professionnelle",
+  "Rédaction augmentée : e-mails, rapports, propositions en 2× moins de temps",
+  "Analyse de documents et extraction d'informations clés par l'IA",
+  "Cadre d'usage responsable et conforme RGPD en entreprise",
+  "Veille sectorielle automatisée sur vos sujets métier",
+  "Premier scénario d'automatisation no-code construit et déployé",
+  "IA intégrée dans la relation client pour personnaliser vos échanges",
+  "Méthode de vérification des résultats IA pour éviter les erreurs"
+];
+
+function buildDetail(theme, score) {
+  const level = getLevel(score);
+  const isIA = theme === "ia";
+  const el = document.getElementById("detail-" + theme);
+  const apports = isIA ? apportsIA : apportsBureau;
+  const labelMap = { high: "Formation fortement recommandée", medium: "Formation recommandée", low: "Formation optionnelle / niveau avancé" };
+  const colorMap = { high: "#065f46", medium: "#92400e", low: "#475569" };
+
+  // Pick top apports based on answers
+  const themeAnswers = [];
+  for (let i = (isIA ? 10 : 0); i < (isIA ? 20 : 10); i++) {
+    themeAnswers.push(answers[i] || 0);
+  }
+  // Sort indices by score desc to show highest-need items first
+  const indexed = themeAnswers.map((s, i) => ({ s, i })).sort((a, b) => b.s - a.s);
+  const topIdxs = indexed.slice(0, 4).map(x => x.i);
+  const selectedApports = topIdxs.map(i => apports[i % apports.length]);
+
+  const icon = isIA ? "🤖" : "📁";
+  const name = isIA ? "IA au quotidien" : "Bureautique";
+  const priceLine = isIA
+    ? "Formation IA au quotidien · 1 jour · 1 490 € HT / groupe (jusqu'à 8 participants)"
+    : "Formation Bureautique · 1 jour · 1 490 € HT / groupe (jusqu'à 8 participants)";
+
+  el.innerHTML = `
+    <h3>${icon} ${name} <span class="theme-badge ${getBadgeClass(level)}">${labelMap[level]}</span></h3>
+    <p>Ce que vous gagnerez après la formation :</p>
+    <ul class="apports">
+      ${selectedApports.map(a => `<li>${a}</li>`).join("")}
+    </ul>
+    <p style="margin-top:0.8rem; font-size:12px; color:#94a3b8;">${priceLine}</p>
+  `;
+}
+
+function restart() {
+  current = 0;
+  answers = new Array(questions.length).fill(null);
+  document.getElementById("result-section").style.display = "none";
+  document.getElementById("qcm-section").style.display = "block";
+  document.getElementById("phase-label").style.display = "inline-block";
+  document.getElementById("gauge-bureau").style.width = "0%";
+  document.getElementById("gauge-ia").style.width = "0%";
+  renderQ();
+}
+
+renderQ();
+</script>
+</body>
+</html>
