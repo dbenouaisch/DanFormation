@@ -113,7 +113,125 @@
   .btn-restart:hover { background: #f8fafc; color: #64748b; }
 
   .hidden { display: none; }
+
+  /* ── CONTACT BLOCK ── */
+  .contact-block {
+    background: #1a1a18;
+    border: 2px solid #B8996A;
+    border-radius: 14px;
+    padding: 2rem 2.25rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #B8996A, #D4B98A, #B8996A);
+  }
+  .contact-eyebrow {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #B8996A;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .contact-block h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #FEFDFB;
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+  .contact-block .contact-sub {
+    font-size: 13px;
+    color: #9A9894;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+  .contact-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 1rem;
+  }
+  .contact-field-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #B8996A;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .contact-input {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(184,153,106,0.4);
+    color: #FEFDFB;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    padding: 11px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    border-radius: 0;
+  }
+  .contact-input::placeholder { color: #6B6B65; }
+  .contact-input:focus { border-color: #B8996A; background: rgba(255,255,255,0.09); }
+  .contact-textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  .contact-btn {
+    width: 100%;
+    background: #B8996A;
+    color: #1a1a18;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 13px 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 4px;
+  }
+  .contact-btn:hover { background: #D4B98A; }
+  .contact-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .contact-success {
+    display: none;
+    text-align: center;
+    padding: 1.5rem 0 0.5rem;
+  }
+  .contact-success .success-icon {
+    font-size: 32px;
+    margin-bottom: 0.5rem;
+  }
+  .contact-success p {
+    font-size: 14px;
+    color: #B8996A;
+    font-weight: 500;
+  }
+  .contact-success .success-sub {
+    font-size: 12px;
+    color: #6B6B65;
+    margin-top: 0.3rem;
+  }
+  .contact-error {
+    display: none;
+    font-size: 12px;
+    color: #e57373;
+    margin-top: 8px;
+    text-align: center;
+  }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init("TGnxhkKfjTpGZ90Np");</script>
 </head>
 <body>
 
@@ -173,9 +291,32 @@
     <div id="detail-bureau" class="theme-card"></div>
     <div id="detail-ia" class="theme-card ia-card"></div>
 
-    <div class="cta-card">
-      Intéressé(e) ? Contactez Dan Benouaisch pour un devis en 24 h :<br>
-      <a href="mailto:dbenouaisch@gmail.com">dbenouaisch@gmail.com</a> · <a href="https://dan-ia.fr" target="_blank">dan-ia.fr</a>
+    <!-- CONTACT BLOCK -->
+    <div class="contact-block" id="contact-block">
+      <div class="contact-eyebrow">Échange personnalisé</div>
+      <h3>Vous souhaitez qu'on vous recontacte ?</h3>
+      <p class="contact-sub">Laissez votre email ci-dessous. Dan Benouaisch vous répondra sous 24 h pour un échange sans engagement sur votre besoin en formation.</p>
+
+      <div id="contact-form">
+        <div class="contact-fields">
+          <div>
+            <label class="contact-field-label" for="contact-email">Votre adresse email *</label>
+            <input class="contact-input" type="email" id="contact-email" placeholder="prenom.nom@entreprise.com" required>
+          </div>
+          <div>
+            <label class="contact-field-label" for="contact-note">Un sujet spécifique à aborder ? (optionnel)</label>
+            <textarea class="contact-input contact-textarea" id="contact-note" placeholder="Ex : automatisation de mon reporting, formation pour mon équipe de 5 personnes, financement OPCO…"></textarea>
+          </div>
+        </div>
+        <button class="contact-btn" id="contact-submit" onclick="sendContact()">Envoyer mes résultats et être recontacté(e) →</button>
+        <div class="contact-error" id="contact-error">Une erreur est survenue. Veuillez réessayer ou écrire directement à dbenouaisch@gmail.com</div>
+      </div>
+
+      <div class="contact-success" id="contact-success">
+        <div class="success-icon">✓</div>
+        <p>Votre demande a bien été envoyée à Dan Benouaisch.</p>
+        <p class="success-sub">Vous serez recontacté(e) sous 24 h à l'adresse indiquée.</p>
+      </div>
     </div>
 
     <button class="btn-restart" onclick="restart()">↺ Recommencer l'évaluation</button>
@@ -611,6 +752,60 @@ function buildDetail(theme, score) {
   `;
 }
 
+function sendContact() {
+  const email = document.getElementById("contact-email").value.trim();
+  const note = document.getElementById("contact-note").value.trim();
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    document.getElementById("contact-error").style.display = "block";
+    document.getElementById("contact-error").textContent = "Veuillez saisir une adresse email valide.";
+    return;
+  }
+
+  const sb = computeScore("bureau");
+  const si = computeScore("ia");
+
+  // Build full answers summary
+  const burLines = questions.slice(0,10).map((q,i) => {
+    const a = answers[i];
+    return `Q${i+1}. ${q.text}\n→ ${a !== null ? q.options[a].label : 'Sans réponse'}`;
+  }).join("\n\n");
+  const iaLines = questions.slice(10,20).map((q,i) => {
+    const a = answers[i+10];
+    return `Q${i+1}. ${q.text}\n→ ${a !== null ? q.options[a].label : 'Sans réponse'}`;
+  }).join("\n\n");
+
+  const conseil = document.getElementById("conseil-titre").textContent;
+
+  const templateParams = {
+    to_email: "dbenouaisch@gmail.com",
+    from_email: email,
+    score_bureau: sb + "%",
+    score_ia: si + "%",
+    conseil: conseil,
+    note: note || "Aucune note",
+    reponses_bureau: burLines,
+    reponses_ia: iaLines,
+    reply_to: email
+  };
+
+  const btn = document.getElementById("contact-submit");
+  btn.disabled = true;
+  btn.textContent = "Envoi en cours…";
+  document.getElementById("contact-error").style.display = "none";
+
+  emailjs.send("service_cpg33ll", "template_czd3q6d", templateParams)
+    .then(() => {
+      document.getElementById("contact-form").style.display = "none";
+      document.getElementById("contact-success").style.display = "block";
+    })
+    .catch(() => {
+      btn.disabled = false;
+      btn.textContent = "Envoyer mes résultats et être recontacté(e) →";
+      document.getElementById("contact-error").style.display = "block";
+      document.getElementById("contact-error").textContent = "Une erreur est survenue. Veuillez réessayer ou écrire directement à dbenouaisch@gmail.com";
+    });
+}
+
 function restart() {
   current = 0;
   answers = new Array(questions.length).fill(null);
@@ -619,6 +814,15 @@ function restart() {
   document.getElementById("phase-label").style.display = "inline-block";
   document.getElementById("gauge-bureau").style.width = "0%";
   document.getElementById("gauge-ia").style.width = "0%";
+  // Reset contact form
+  document.getElementById("contact-form").style.display = "block";
+  document.getElementById("contact-success").style.display = "none";
+  document.getElementById("contact-error").style.display = "none";
+  document.getElementById("contact-email").value = "";
+  document.getElementById("contact-note").value = "";
+  const btn = document.getElementById("contact-submit");
+  btn.disabled = false;
+  btn.textContent = "Envoyer mes résultats et être recontacté(e) →";
   renderQ();
 }
 
