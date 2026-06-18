@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>DAN-IA · Évaluation de vos besoins en formation</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>DAN-IA · Everyday AI — se former aux usages du quotidien</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -15,160 +15,166 @@
   --i:#4A6580;
 }
 
-/* ── DESKTOP : tout en 100vh ── */
+/* ── RESET ── */
 html,body{height:100%}
-body{
-  font-family:'DM Sans',Arial,sans-serif;
-  background:var(--cream);
-  color:var(--ink);
-  line-height:1.5;
-  display:flex;
-  flex-direction:column;
-  height:100%;
-  overflow:hidden;
-}
+body{font-family:'DM Sans',Arial,sans-serif;background:var(--cream);color:var(--ink);line-height:1.5;display:flex;flex-direction:column;overflow:hidden}
 
-/* HEADER */
-.hdr{background:var(--ink);padding:.75rem 2rem;flex-shrink:0;position:relative}
-.hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--b);opacity:.4}
-.hdr-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
-.hdr-eye{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--b);font-weight:600}
-.hdr-cta{display:flex;align-items:center;gap:6px;background:rgba(184,153,106,.15);border:1px solid rgba(184,153,106,.35);padding:7px 14px;text-decoration:none;color:var(--b-lt);font-size:11px;font-weight:600;letter-spacing:.5px;white-space:nowrap;transition:background .15s}
-.hdr-cta:hover{background:rgba(184,153,106,.28)}
-.hdr-cta svg{width:14px;height:14px;flex-shrink:0}
-.gold-line{height:2px;background:var(--b);opacity:.45;flex-shrink:0}
+/* ── NAV ── */
+.nav{flex-shrink:0;background:var(--ink);padding:.65rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(184,153,106,.3)}
+.nav-brand{display:flex;align-items:center;gap:9px}
+.nav-logo{width:26px;height:26px;background:var(--b);display:flex;align-items:center;justify-content:center}
+.nav-logo span{font-family:'DM Serif Display',Georgia,serif;font-size:13px;color:var(--ink)}
+.nav-name{font-size:13px;font-weight:600;color:var(--white)}
+.nav-sub{font-size:9px;color:var(--ink-faint);letter-spacing:.5px;margin-top:1px}
+.nav-cta{display:flex;align-items:center;gap:5px;text-decoration:none;color:var(--ink-faint);font-size:10px;letter-spacing:.3px;transition:color .15s}
+.nav-cta:hover{color:var(--b)}
+.nav-cta svg{width:13px;height:13px}
 
-/* MAIN LAYOUT : 2 colonnes */
-.main{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:0;max-width:1100px;margin:0 auto;width:100%;padding:0 2rem;gap:2.5rem;align-items:center}
+/* ── MAIN 2 COLONNES ── */
+.main{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:0;overflow:hidden}
 
-/* COLONNE GAUCHE — hero */
-.col-left{}
-.hero-eye{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--b);font-weight:600;margin-bottom:.6rem}
-.hero-title{font-family:'DM Serif Display',Georgia,serif;font-size:38px;color:var(--ink);line-height:1.15;margin-bottom:.9rem}
-.hero-sub{font-size:16px;color:var(--ink-lt);line-height:1.65;margin-bottom:1.25rem;max-width:440px}
-.hero-meta{display:flex;gap:1.5rem;margin-bottom:1.75rem;flex-wrap:wrap}
-.meta-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-faint)}
-.meta-dot{width:6px;height:6px;background:var(--b);flex-shrink:0}
-.cta-btn{display:inline-block;background:var(--b);color:var(--ink);text-decoration:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;padding:14px 32px;transition:background .2s}
+/* ── COLONNE GAUCHE ── */
+.col-left{background:var(--cream);padding:2.5rem 2.5rem 2rem;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--rule);overflow:hidden}
+
+.eye{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--b);font-weight:600;margin-bottom:.9rem}
+
+.hero-title{font-family:'DM Serif Display',Georgia,serif;font-size:42px;color:var(--ink);line-height:1.1;margin-bottom:1rem}
+.hero-title em{font-style:italic;color:var(--b)}
+
+.hero-deck{font-size:15px;color:var(--ink-lt);line-height:1.65;margin-bottom:1.25rem;max-width:400px}
+
+.hero-meta{display:flex;gap:1.25rem;margin-bottom:1.75rem}
+.meta-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink-faint)}
+.meta-dot{width:5px;height:5px;background:var(--b);flex-shrink:0}
+
+.cta-btn{display:block;background:var(--b);color:var(--ink);text-decoration:none;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:14px 28px;text-align:center;transition:background .2s;margin-bottom:.65rem}
 .cta-btn:hover{background:var(--b-lt)}
-.cta-ghost{display:block;font-size:12px;color:var(--ink-faint);text-decoration:none;margin-top:.75rem}
+.cta-ghost{font-size:11px;color:var(--ink-faint);text-decoration:none;display:block}
 .cta-ghost:hover{color:var(--ink-lt)}
 
-/* COLONNE DROITE */
-.col-right{display:flex;flex-direction:column;gap:1rem;height:100%;justify-content:center;padding:1.5rem 0}
+/* ── COLONNE DROITE ── */
+.col-right{background:var(--cream);display:flex;flex-direction:column;overflow:hidden}
 
 /* Thèmes */
-.themes{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-.theme-card{padding:.9rem 1rem;border:1px solid var(--rule);background:var(--white);position:relative}
-.theme-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
-.theme-b::before{background:var(--b)}
-.theme-i::before{background:var(--i)}
-.tc-num{font-family:'DM Serif Display',Georgia,serif;font-size:26px;font-weight:700;line-height:1;margin-bottom:.15rem}
-.theme-b .tc-num{color:var(--b)}
-.theme-i .tc-num{color:var(--i)}
-.tc-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:.15rem}
-.theme-b .tc-label{color:var(--b)}
-.theme-i .tc-label{color:var(--i)}
-.tc-name{font-family:'DM Serif Display',Georgia,serif;font-size:14px;color:var(--ink);margin-bottom:.3rem}
-.tc-desc{font-size:11.5px;color:var(--ink-lt);line-height:1.4}
+.themes{display:grid;grid-template-columns:1fr 1fr;flex-shrink:0;border-bottom:1px solid var(--rule)}
+.theme-card{padding:1.1rem 1.5rem;background:var(--white);border-right:1px solid var(--rule)}
+.theme-card:last-child{border-right:none;border-left:3px solid var(--i)}
+.theme-card:first-child{border-left:3px solid var(--b)}
+.tc-num{font-family:'DM Serif Display',Georgia,serif;font-size:28px;line-height:1;margin-bottom:.15rem}
+.theme-card:first-child .tc-num{color:var(--b)}
+.theme-card:last-child .tc-num{color:var(--i)}
+.tc-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:.15rem}
+.theme-card:first-child .tc-lbl{color:var(--b)}
+.theme-card:last-child .tc-lbl{color:var(--i)}
+.tc-name{font-family:'DM Serif Display',Georgia,serif;font-size:16px;color:var(--ink);margin-bottom:.3rem;font-weight:600}
+.tc-desc{font-size:11.5px;color:var(--ink-lt);line-height:1.45}
 
 /* Promise */
-.promise{background:var(--white);border:1px solid var(--rule);border-left:3px solid var(--b);padding:.9rem 1.1rem}
-.promise-title{font-family:'DM Serif Display',Georgia,serif;font-size:14px;color:var(--ink);margin-bottom:.45rem}
+.promise{background:var(--white);border-bottom:1px solid var(--rule);padding:1rem 1.5rem;flex-shrink:0}
+.promise-title{font-family:'DM Serif Display',Georgia,serif;font-size:14px;color:var(--ink);margin-bottom:.5rem;font-weight:600}
 .promise-list{list-style:none}
 .promise-list li{display:flex;gap:8px;padding:4px 0;border-bottom:1px solid var(--cream-dk);font-size:12px;color:var(--ink-mid);line-height:1.4}
 .promise-list li:last-child{border-bottom:none}
 .arr{color:var(--b);font-weight:700;font-size:10px;flex-shrink:0;margin-top:2px}
 
-/* Proof */
-.proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
-.proof-cell{background:var(--ink);padding:.8rem .9rem}
-.proof-num{font-family:'DM Serif Display',Georgia,serif;font-size:22px;color:var(--b);line-height:1}
-.proof-txt{font-size:10.5px;color:var(--ink-faint);line-height:1.35;margin-top:.15rem}
-.proof-src{font-size:9px;color:var(--ink-lt);margin-top:.25rem}
+/* Stats */
+.stats{display:grid;grid-template-columns:1fr 1fr;flex:1;min-height:0}
+.stat-cell{background:var(--ink);padding:.9rem 1.25rem;border-right:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;justify-content:space-between}
+.stat-num{font-family:'DM Serif Display',Georgia,serif;font-size:26px;line-height:1;margin-bottom:.25rem}
+.stat-b{color:var(--b)}
+.stat-i{color:var(--i-lt, #7A9AB8)}
+.stat-txt{font-size:11px;color:var(--ink-faint);line-height:1.4}
+.stat-src{font-size:9px;color:var(--ink-lt);margin-top:.3rem}
 
-/* Footer */
-.footer-bar{background:var(--ink);padding:.6rem 2rem;flex-shrink:0;text-align:center}
-.footer-bar p{font-size:10px;color:var(--ink-faint)}
-.footer-bar a{color:var(--b);text-decoration:none}
+/* ── FOOTER ── */
+.footer{flex-shrink:0;background:var(--ink);padding:.6rem 2rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(184,153,106,.2)}
+.footer-txt{font-size:10px;color:var(--ink-faint);line-height:1.5}
+.footer-txt a{color:var(--b);text-decoration:none}
+.footer-cta{font-size:10px;color:var(--b);letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border:1px solid rgba(184,153,106,.35);padding:6px 14px;white-space:nowrap;transition:all .15s}
+.footer-cta:hover{background:rgba(184,153,106,.12)}
 
-/* ── MOBILE : scroll naturel, 2 écrans ── */
+/* ── MOBILE ── */
 @media(max-width:768px){
   html,body{height:auto;overflow:auto}
   body{display:block}
-  .hdr{padding:.85rem 1.25rem}
-  .hdr-eye{font-size:10px}
-  .gold-line{}
-  .main{
-    display:block;
-    padding:0;
-    max-width:100%;
-  }
-  /* Écran 1 : hero */
-  .col-left{
-    background:var(--ink);
-    padding:2rem 1.25rem 2.25rem;
-  }
+
+  .nav{padding:.75rem 1.25rem}
+  .nav-sub{display:none}
+
+  /* Écran 1 : colonne gauche sur fond encre */
+  .main{display:block}
+  .col-left{background:var(--ink);padding:2rem 1.25rem 2.25rem;border-right:none;border-bottom:1px solid rgba(184,153,106,.3)}
+  .eye{color:var(--b)}
   .hero-title{font-size:30px;color:var(--white)}
-  .hero-sub{font-size:14px;color:var(--ink-faint);max-width:100%}
+  .hero-title em{color:var(--b)}
+  .hero-deck{font-size:14px;color:var(--ink-faint);max-width:100%}
   .meta-item{color:var(--ink-lt)}
-  .cta-btn{display:block;text-align:center;padding:14px}
-  .cta-ghost{color:var(--ink-lt);text-align:center}
-  /* Écran 2 : contenu */
-  .col-right{
-    padding:1.5rem 1.25rem 2rem;
-    gap:1rem;
-    height:auto;
-    justify-content:flex-start;
-  }
-  .footer-bar{padding:.75rem 1.25rem}
+  .cta-ghost{color:var(--ink-lt)}
+
+  /* Écran 2 : colonne droite sur cream */
+  .col-right{background:var(--cream)}
+  .themes{border-top:none}
+  .stats{grid-template-columns:1fr 1fr;flex:none}
+  .stat-cell{padding:.85rem 1rem}
+  .stat-num{font-size:22px}
+  .stat-txt{font-size:10.5px}
+
+  .footer{padding:.75rem 1.25rem;flex-direction:column;gap:.5rem;text-align:center}
+  .footer-cta{display:none}
 }
 </style>
 </head>
 <body>
 
-<header class="hdr">
-  <div class="hdr-inner">
-    <span class="hdr-eye">DAN-IA · Formations</span>
-    <a class="hdr-cta" href="mailto:dbenouaisch@gmail.com">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-      Nous contacter
-    </a>
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo"><span>D</span></div>
+    <div>
+      <div class="nav-name">DAN-IA</div>
+      <div class="nav-sub">Formations & conseil</div>
+    </div>
   </div>
-</header>
-<div class="gold-line"></div>
+  <a class="nav-cta" href="mailto:dbenouaisch@gmail.com">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+    Nous contacter
+  </a>
+</nav>
 
 <div class="main">
 
-  <!-- GAUCHE : hero + CTA -->
+  <!-- GAUCHE -->
   <div class="col-left">
-    <p class="hero-eye">Évaluation gratuite</p>
-    <h1 class="hero-title">Avez-vous vraiment besoin d'une formation ?</h1>
-    <p class="hero-sub">10 questions pour mesurer votre niveau réel sur les deux compétences clés qui transforment l'efficacité des organisations en 2026.</p>
-    <div class="hero-meta">
-      <div class="meta-item"><span class="meta-dot"></span>3 minutes</div>
-      <div class="meta-item"><span class="meta-dot"></span>Résultat immédiat</div>
-      <div class="meta-item"><span class="meta-dot"></span>Sans engagement</div>
+    <div>
+      <p class="eye">Évaluation gratuite</p>
+      <h1 class="hero-title">Everyday AI —<br><em>se former aux<br>usages du quotidien</em></h1>
+      <p class="hero-deck">10 questions pour mesurer votre niveau réel sur les deux compétences qui transforment l'efficacité des organisations en 2026.</p>
+      <div class="hero-meta">
+        <div class="meta-item"><span class="meta-dot"></span>3 minutes</div>
+        <div class="meta-item"><span class="meta-dot"></span>Résultat immédiat</div>
+        <div class="meta-item"><span class="meta-dot"></span>Sans engagement</div>
+      </div>
     </div>
-    <a class="cta-btn" href="index.html">Démarrer l'évaluation →</a>
-    <a class="cta-ghost" href="mailto:dbenouaisch@gmail.com">Vous préférez discuter directement ?</a>
+    <div>
+      <a class="cta-btn" href="index.html">Démarrer l'évaluation →</a>
+      <a class="cta-ghost" href="mailto:dbenouaisch@gmail.com">Vous préférez discuter directement ?</a>
+    </div>
   </div>
 
-  <!-- DROITE : thèmes + promise + preuves -->
+  <!-- DROITE -->
   <div class="col-right">
 
     <div class="themes">
-      <div class="theme-card theme-b">
+      <div class="theme-card">
         <div class="tc-num">01</div>
-        <div class="tc-label">Thème 1</div>
+        <div class="tc-lbl">Thème 1</div>
         <div class="tc-name">Bureautique</div>
-        <p class="tc-desc">Fichiers, tableur, documents, cloud, automatisation</p>
+        <p class="tc-desc">Fichiers, tableur, documents de qualité, cloud collaboratif, automatisation</p>
       </div>
-      <div class="theme-card theme-i">
+      <div class="theme-card">
         <div class="tc-num">02</div>
-        <div class="tc-label">Thème 2</div>
+        <div class="tc-lbl">Thème 2</div>
         <div class="tc-name">IA au quotidien</div>
-        <p class="tc-desc">Prompts, rédaction, analyse, RGPD, no-code</p>
+        <p class="tc-desc">Prompts, rédaction augmentée, analyse de documents, usage responsable & RGPD</p>
       </div>
     </div>
 
@@ -182,34 +188,38 @@ body{
       </ul>
     </div>
 
-    <div class="proof-grid">
-      <div class="proof-cell">
-        <div class="proof-num">+163%</div>
-        <p class="proof-txt">de productivité pour les entreprises avancées en IA</p>
-        <p class="proof-src">PwC AI Jobs Barometer 2026</p>
+    <div class="stats">
+      <div class="stat-cell">
+        <div class="stat-num stat-b">+163%</div>
+        <p class="stat-txt">de productivité pour les entreprises avancées en IA</p>
+        <p class="stat-src">PwC AI Jobs Barometer 2026</p>
       </div>
-      <div class="proof-cell">
-        <div class="proof-num">60 min</div>
-        <p class="proof-txt">économisées par jour par les utilisateurs IA</p>
-        <p class="proof-src">Goldman Sachs 2026</p>
+      <div class="stat-cell">
+        <div class="stat-num stat-i">60 min</div>
+        <p class="stat-txt">économisées par jour par les utilisateurs IA</p>
+        <p class="stat-src">Goldman Sachs 2026</p>
       </div>
-      <div class="proof-cell">
-        <div class="proof-num">+30%</div>
-        <p class="proof-txt">de gains de productivité dans les organisations équipées</p>
-        <p class="proof-src">Bpifrance 2026</p>
+      <div class="stat-cell">
+        <div class="stat-num stat-b">+30%</div>
+        <p class="stat-txt">de gains de productivité dans les organisations équipées</p>
+        <p class="stat-src">Bpifrance 2026</p>
       </div>
-      <div class="proof-cell">
-        <div class="proof-num">N°1</div>
-        <p class="proof-txt">Le déficit de compétences est le 1er frein à la transformation IA</p>
-        <p class="proof-src">Deloitte State of AI 2026</p>
+      <div class="stat-cell">
+        <div class="stat-num" style="font-family:'DM Serif Display',Georgia,serif;font-size:16px;color:#B8996A;padding-top:2px">Compétences IA</div>
+        <p class="stat-txt">1er frein à la transformation — avant le budget</p>
+        <p class="stat-src">Deloitte State of AI 2026</p>
       </div>
     </div>
 
   </div>
 </div>
 
-<footer class="footer-bar">
-  <p>Dan Benouaisch · 25 ans d'expérience terrain · IBM France · Alteryx · Origina · <a href="mailto:dbenouaisch@gmail.com">dbenouaisch@gmail.com</a> · <a href="https://dan-ia.fr" target="_blank">dan-ia.fr</a></p>
+<footer class="footer">
+  <div class="footer-txt">
+    Dan Benouaisch · 25 ans d'expérience terrain · IBM France · Alteryx · Origina ·
+    <a href="mailto:dbenouaisch@gmail.com">dbenouaisch@gmail.com</a> · <a href="https://dan-ia.fr" target="_blank">dan-ia.fr</a>
+  </div>
+  <a class="footer-cta" href="index.html">Démarrer →</a>
 </footer>
 
 </body>
