@@ -2,195 +2,160 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DAN-IA · Évaluation de vos besoins en formation</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>DAN-IA · Évaluation formation</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --cream:#F5F3EE;
-  --cream-dk:#EDE9E0;
-  --ink:#1A1A18;
-  --ink-mid:#3A3A36;
-  --ink-lt:#6B6B65;
-  --ink-faint:#9A9A94;
-  --white:#FEFDFB;
-  --rule:#D8D4CC;
-  /* Thème Bureautique */
-  --b:#B8996A;
-  --b-lt:#D4B98A;
-  --b-pale:#F0E8D8;
-  /* Thème IA */
-  --i:#4A6580;
-  --i-lt:#7A9AB8;
-  --i-pale:#E8EFF6;
+  --cream:#F5F3EE;--cream-dk:#EDE9E0;
+  --ink:#1A1A18;--ink-mid:#3A3A36;--ink-lt:#6B6B65;--ink-faint:#9A9A94;
+  --white:#FEFDFB;--rule:#D8D4CC;
+  --b:#B8996A;--b-lt:#D4B98A;--b-pale:#F0E8D8;
+  --i:#4A6580;--i-lt:#7A9AB8;--i-pale:#E8EFF6;
 }
-
-html,body{height:100%}
-body{
-  font-family:'DM Sans',Arial,sans-serif;
-  background:var(--cream);
-  color:var(--ink);
-  font-size:15px;
-  line-height:1.6;
-  display:flex;
-  flex-direction:column;
-  min-height:100vh;
-}
+body{font-family:'DM Sans',Arial,sans-serif;background:var(--cream);color:var(--ink);font-size:15px;line-height:1.6}
 
 /* ── HEADER ── */
-.hdr{background:var(--ink);padding:1.25rem 2rem;flex-shrink:0}
-.hdr-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.hdr-left{}
-.hdr-eye{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--b);font-weight:600;margin-bottom:.2rem}
-.hdr-title{font-family:'DM Serif Display',Georgia,serif;font-size:20px;color:var(--white);line-height:1.2}
-.hdr-sub{font-size:11px;color:var(--ink-faint);margin-top:.15rem;letter-spacing:.3px}
-.hdr-contact{
-  display:flex;align-items:center;gap:8px;
-  background:rgba(184,153,106,.15);
-  border:1px solid rgba(184,153,106,.4);
-  padding:8px 14px;
-  text-decoration:none;
-  color:var(--b-lt);
-  font-size:11px;
-  font-weight:600;
-  letter-spacing:.5px;
-  white-space:nowrap;
+.hdr{background:var(--ink);padding:1rem 1.25rem;position:relative}
+.hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--b);opacity:.4}
+.hdr-inner{max-width:680px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:.75rem}
+.hdr-left{min-width:0}
+.hdr-eye{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--b);font-weight:600;margin-bottom:.15rem}
+.hdr-title{font-family:'DM Serif Display',Georgia,serif;font-size:16px;color:var(--white);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-sub{font-size:10px;color:var(--ink-faint);margin-top:.1rem}
+.hdr-cta{
+  display:flex;align-items:center;gap:6px;flex-shrink:0;
+  background:rgba(184,153,106,.15);border:1px solid rgba(184,153,106,.4);
+  padding:7px 12px;text-decoration:none;color:var(--b-lt);
+  font-size:10px;font-weight:600;letter-spacing:.5px;white-space:nowrap;
   transition:background .15s;
-  flex-shrink:0;
 }
-.hdr-contact:hover{background:rgba(184,153,106,.28)}
-.hdr-contact svg{width:15px;height:15px;flex-shrink:0}
+.hdr-cta:hover{background:rgba(184,153,106,.28)}
+.hdr-cta svg{width:14px;height:14px;flex-shrink:0}
 
 /* ── PROGRESS ── */
-.prog-wrap{background:var(--ink-mid);height:2px;flex-shrink:0}
+.prog{height:2px;background:var(--ink-mid)}
 .prog-fill{height:2px;width:0%;transition:width .35s ease}
 
-/* ── MAIN ── */
-.main{flex:1;display:flex;align-items:center;justify-content:center;padding:1.25rem}
-.card{background:var(--white);border:1px solid var(--rule);width:100%;max-width:680px;position:relative;overflow:hidden}
-.card-accent{position:absolute;top:0;left:0;width:4px;height:100%}
+/* ── WRAP ── */
+.wrap{max-width:680px;margin:0 auto;padding:1.25rem 1rem 2rem}
 
-/* ── THEME TAG ── */
-.theme-tag{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:9px;letter-spacing:3px;text-transform:uppercase;font-weight:600;
-  padding:4px 12px;
-  margin:1.5rem 1.5rem 0;
-  border:1px solid;
-}
+/* ── PHASE ROW ── */
+.phase-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+.phase-num{font-family:'DM Serif Display',Georgia,serif;font-size:32px;font-weight:700;line-height:1}
+.phase-lbl{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;font-weight:600}
+.phase-name{font-family:'DM Serif Display',Georgia,serif;font-size:14px;font-weight:600;color:var(--ink)}
 
-/* ── QUESTION ── */
-.q-inner{padding:1rem 1.75rem 1.5rem}
-.q-counter{font-size:10px;color:var(--ink-faint);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.5rem;font-weight:500}
-.q-text{font-family:'DM Serif Display',Georgia,serif;font-size:20px;color:var(--ink);line-height:1.35;margin-bottom:1.25rem}
+/* ── QUESTION CARD ── */
+.qcard{background:var(--white);border:1px solid var(--rule);position:relative;margin-bottom:1rem}
+.qcard-bar{position:absolute;top:0;left:0;width:3px;height:100%}
+.qcard-inner{padding:1.25rem 1.25rem 1rem 1.5rem}
+.q-ctr{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-faint);font-weight:500;margin-bottom:.4rem}
+.q-txt{font-family:'DM Serif Display',Georgia,serif;font-size:17px;color:var(--ink);line-height:1.35;margin-bottom:1rem}
 
 /* ── OPTIONS ── */
-.opts{display:flex;flex-direction:column;gap:7px}
-.opt{
-  display:flex;align-items:flex-start;gap:12px;
-  padding:11px 14px;
-  border:1px solid var(--rule);
-  background:var(--white);
-  cursor:pointer;
-  transition:border-color .12s,background .12s;
-  user-select:none;
-}
-.opt:hover{border-color:var(--hover-c,var(--b));background:var(--hover-bg,var(--b-pale))}
-.opt.sel{border-color:var(--sel-c,var(--b));background:var(--sel-bg,var(--b-pale))}
-.opt.sel .radio{background:var(--sel-c,var(--b));border-color:var(--sel-c,var(--b))}
-.opt.sel .radio::after{opacity:1}
-.radio{width:16px;height:16px;border:1.5px solid var(--rule);flex-shrink:0;margin-top:2px;position:relative;transition:all .12s}
-.radio::after{content:'';position:absolute;top:3px;left:3px;width:8px;height:8px;background:var(--white);opacity:0;transition:opacity .12s}
-.opt-text{font-size:13.5px;color:var(--ink-mid);line-height:1.45}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid var(--rule);background:var(--white);cursor:pointer;transition:all .12s;user-select:none}
+.opt-text{font-size:13px;color:var(--ink-mid);line-height:1.4}
 .opt.sel .opt-text{color:var(--ink)}
+.radio{width:15px;height:15px;border:1.5px solid var(--rule);flex-shrink:0;margin-top:2px;position:relative;transition:all .12s}
+.radio::after{content:'';position:absolute;top:3px;left:3px;width:7px;height:7px;background:var(--white);opacity:0;transition:opacity .12s}
+.opt.sel .radio::after{opacity:1}
+
+/* Thème Bureautique */
+.theme-b .opt:hover,.theme-b .opt.sel{border-color:var(--b);background:var(--b-pale)}
+.theme-b .opt.sel .radio{background:var(--b);border-color:var(--b)}
+.theme-b .phase-num,.theme-b .phase-lbl{color:var(--b)}
+.theme-b .qcard-bar{background:var(--b)}
+
+/* Thème IA */
+.theme-i .opt:hover,.theme-i .opt.sel{border-color:var(--i);background:var(--i-pale)}
+.theme-i .opt.sel .radio{background:var(--i);border-color:var(--i)}
+.theme-i .phase-num,.theme-i .phase-lbl{color:var(--i)}
+.theme-i .qcard-bar{background:var(--i)}
 
 /* ── NAV ── */
-.nav{display:flex;justify-content:space-between;align-items:center;padding:.75rem 1.75rem 1.5rem}
-.step-txt{font-size:11px;color:var(--ink-faint);letter-spacing:1px}
-.btn{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:10px 26px;cursor:pointer;border:1px solid;transition:all .15s}
-.btn-ghost{background:transparent;color:var(--ink-lt);border-color:var(--rule)}
-.btn-ghost:hover{border-color:var(--ink-lt);color:var(--ink)}
-.btn-b{background:var(--ink);color:var(--white);border-color:var(--ink)}
-.btn-b:hover{background:var(--ink-mid)}
-.btn-b-go{background:var(--b);color:var(--ink);border-color:var(--b)}
-.btn-b-go:hover{background:var(--b-lt)}
-.btn-i{background:var(--ink);color:var(--white);border-color:var(--ink)}
-.btn-i:hover{background:var(--ink-mid)}
-.btn-i-go{background:var(--i);color:var(--white);border-color:var(--i)}
-.btn-i-go:hover{background:var(--i-lt)}
+.nav{display:flex;justify-content:space-between;align-items:center;padding-top:.25rem}
+.step{font-size:10px;color:var(--ink-faint);letter-spacing:1px}
+.btn{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;cursor:pointer;border:1px solid;transition:all .15s}
 .btn:disabled{opacity:.3;cursor:not-allowed}
+.btn-ghost{background:transparent;color:var(--ink-lt);border-color:var(--rule)}
+.btn-ghost:hover{border-color:var(--ink-lt)}
+.btn-ink{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.btn-ink:hover{background:var(--ink-mid)}
+.btn-go-b{background:var(--b);color:var(--ink);border-color:var(--b)}
+.btn-go-b:hover{background:var(--b-lt)}
+.btn-go-i{background:var(--i);color:var(--white);border-color:var(--i)}
+.btn-go-i:hover{background:var(--i-lt)}
 
 /* ── RESULTS ── */
 #res{display:none}
-
-.res-hero{background:var(--ink);padding:1.75rem;position:relative}
+.res-hero{background:var(--ink);padding:1.5rem 1.25rem;position:relative;margin-bottom:1rem}
 .res-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--b),var(--i));opacity:.6}
-.res-eye{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--b);font-weight:600;margin-bottom:.4rem}
-.res-title{font-family:'DM Serif Display',Georgia,serif;font-size:22px;color:var(--white);line-height:1.3;margin-bottom:.3rem}
-.res-sub{font-size:12.5px;color:var(--ink-faint);font-weight:300}
-.scores-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.08);margin-top:1.25rem}
-.sc{padding:1.25rem 1.5rem}
-.sc-b{background:rgba(184,153,106,.12)}
-.sc-i{background:rgba(74,101,128,.12)}
-.sc-theme{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;font-weight:600;margin-bottom:.4rem}
-.sc-b .sc-theme{color:var(--b-lt)}
-.sc-i .sc-theme{color:var(--i-lt)}
-.sc-num{font-family:'DM Serif Display',Georgia,serif;font-size:52px;color:var(--white);line-height:1}
-.sc-pct{font-size:22px}
+.r-eye{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--b);font-weight:600;margin-bottom:.35rem}
+.r-title{font-family:'DM Serif Display',Georgia,serif;font-size:19px;color:var(--white);line-height:1.3;margin-bottom:.3rem}
+.r-sub{font-size:12px;color:var(--ink-faint);font-weight:300}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.08);margin-top:1.25rem}
+.sc{padding:1rem 1.1rem}
+.sc-b{background:rgba(184,153,106,.1)}
+.sc-i{background:rgba(74,101,128,.1)}
+.sc-th{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:.35rem}
+.sc-b .sc-th{color:var(--b-lt)}
+.sc-i .sc-th{color:var(--i-lt)}
+.sc-num{font-family:'DM Serif Display',Georgia,serif;font-size:44px;color:var(--white);line-height:1}
+.sc-pct{font-size:18px}
 .sc-b .sc-pct{color:var(--b-lt)}
 .sc-i .sc-pct{color:var(--i-lt)}
-.sc-bar-wrap{height:2px;background:rgba(255,255,255,.08);margin:.65rem 0 .35rem}
+.sc-bar-w{height:2px;background:rgba(255,255,255,.08);margin:.6rem 0 .3rem}
 .sc-bar{height:2px;width:0%;transition:width 1.3s cubic-bezier(.4,0,.2,1)}
 .sc-b .sc-bar{background:var(--b)}
 .sc-i .sc-bar{background:var(--i)}
-.sc-vd{font-size:10.5px;color:var(--ink-faint)}
-@media(max-width:460px){.scores-grid{grid-template-columns:1fr}}
+.sc-vd{font-size:10px;color:var(--ink-faint)}
 
-.res-body{padding:1.25rem 1.75rem 1.75rem;display:flex;flex-direction:column;gap:1rem}
-
-.conseil-block{border-left:3px solid var(--b);padding:.75rem 1.25rem}
+/* Sections résultats */
+.r-section{background:var(--white);border:1px solid var(--rule);margin-bottom:.9rem}
+.conseil-bl{border-left:3px solid var(--b);padding:1.1rem 1.25rem}
 .bl-eye{font-size:9px;letter-spacing:3px;text-transform:uppercase;font-weight:600;color:var(--b);margin-bottom:.3rem}
-.bl-title{font-family:'DM Serif Display',Georgia,serif;font-size:18px;color:var(--ink);line-height:1.35;margin-bottom:.5rem}
-.bl-body{font-size:13px;color:var(--ink-mid);line-height:1.75}
+.bl-title{font-family:'DM Serif Display',Georgia,serif;font-size:17px;color:var(--ink);line-height:1.35;margin-bottom:.5rem}
+.bl-body{font-size:12.5px;color:var(--ink-mid);line-height:1.75}
 
-.theme-det{border:1px solid var(--rule)}
-.det-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:.9rem 1.25rem .6rem}
-.det-b .det-head{border-left:3px solid var(--b)}
-.det-i .det-head{border-left:3px solid var(--i)}
-.det-name{font-family:'DM Serif Display',Georgia,serif;font-size:15px;color:var(--ink)}
-.vpill{font-size:9px;letter-spacing:1px;text-transform:uppercase;font-weight:600;padding:3px 10px;border:1px solid}
+.det-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px;padding:.85rem 1.1rem .6rem}
+.det-b-bl{border-left:3px solid var(--b)}
+.det-i-bl{border-left:3px solid var(--i)}
+.det-name{font-family:'DM Serif Display',Georgia,serif;font-size:14px;color:var(--ink)}
+.vpill{font-size:9px;letter-spacing:1px;text-transform:uppercase;font-weight:600;padding:2px 8px;border:1px solid}
 .vhigh{color:#7A3A10;border-color:#C4702A;background:#FDF4EC}
 .vmed-b{color:#5C4A1A;border-color:var(--b);background:var(--b-pale)}
 .vmed-i{color:#1A2F42;border-color:var(--i);background:var(--i-pale)}
 .vlow{color:var(--ink-lt);border-color:var(--rule);background:var(--cream)}
-.det-sep{font-size:9px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:1.5px;padding:.5rem 1.25rem;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--cream)}
-.apports{list-style:none;padding:.3rem 1.25rem .9rem}
-.apports li{display:flex;gap:9px;padding:7px 0;border-bottom:1px solid var(--cream-dk);font-size:13px;color:var(--ink-mid);line-height:1.45}
-.apports li:last-child{border-bottom:none}
-.arr-b{color:var(--b);font-weight:700;flex-shrink:0;font-size:11px;margin-top:1px}
-.arr-i{color:var(--i);font-weight:700;flex-shrink:0;font-size:11px;margin-top:1px}
+.det-sep{font-size:9px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:1.5px;padding:.4rem 1.1rem;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--cream)}
+.aplist{list-style:none;padding:.2rem 1.1rem .8rem}
+.aplist li{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid var(--cream-dk);font-size:12.5px;color:var(--ink-mid);line-height:1.4}
+.aplist li:last-child{border-bottom:none}
+.arr-b{color:var(--b);font-weight:700;flex-shrink:0;font-size:10px;margin-top:2px}
+.arr-i{color:var(--i);font-weight:700;flex-shrink:0;font-size:10px;margin-top:2px}
 
 /* ── CONTACT ── */
-.contact-block{background:var(--ink);border-top:3px solid var(--b);padding:1.75rem}
-.contact-block h3{font-family:'DM Serif Display',Georgia,serif;font-size:20px;color:var(--white);margin-bottom:.3rem;line-height:1.3}
-.contact-sub{font-size:12.5px;color:var(--ink-faint);margin-bottom:1.25rem;line-height:1.6}
-.fields{display:flex;flex-direction:column;gap:12px;margin-bottom:1rem}
+.contact-bl{background:var(--ink);border-top:3px solid var(--b);padding:1.5rem 1.25rem;margin-bottom:.9rem}
+.contact-bl h3{font-family:'DM Serif Display',Georgia,serif;font-size:18px;color:var(--white);margin-bottom:.3rem;line-height:1.3}
+.contact-sub{font-size:12px;color:var(--ink-faint);margin-bottom:1.25rem;line-height:1.6}
+.fields{display:flex;flex-direction:column;gap:11px;margin-bottom:1rem}
 .f-lbl{display:block;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--b-lt);font-weight:600;margin-bottom:4px}
-.f-inp{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(184,153,106,.25);color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;padding:11px 13px;outline:none;transition:border-color .2s}
+.f-inp{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(184,153,106,.25);color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 12px;outline:none;transition:border-color .2s}
 .f-inp::placeholder{color:#5A5A56}
 .f-inp:focus{border-color:var(--b)}
-textarea.f-inp{resize:vertical;min-height:75px}
-.sub-btn{width:100%;background:var(--b);color:var(--ink);border:none;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;padding:13px;cursor:pointer;transition:background .2s}
+textarea.f-inp{resize:vertical;min-height:70px}
+.sub-btn{width:100%;background:var(--b);color:var(--ink);border:none;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:13px;cursor:pointer;transition:background .2s}
 .sub-btn:hover{background:var(--b-lt)}
 .sub-btn:disabled{opacity:.45;cursor:not-allowed}
-.f-err{display:none;font-size:12px;color:#e07070;margin-top:8px;text-align:center}
-.f-ok{display:none;text-align:center;padding:1.5rem 0 .5rem}
-.f-ok .ok-mark{font-size:32px;color:var(--b);margin-bottom:.5rem}
-.f-ok .ok-msg{font-family:'DM Serif Display',Georgia,serif;font-size:17px;color:var(--white);margin-bottom:.25rem}
-.f-ok .ok-sub{font-size:11.5px;color:var(--ink-faint)}
+.f-err{display:none;font-size:11.5px;color:#e07070;margin-top:8px;text-align:center}
+.f-ok{display:none;text-align:center;padding:1.25rem 0 .5rem}
+.ok-mark{font-size:28px;color:var(--b);margin-bottom:.4rem}
+.ok-msg{font-family:'DM Serif Display',Georgia,serif;font-size:16px;color:var(--white);margin-bottom:.2rem}
+.ok-sub{font-size:11px;color:var(--ink-faint)}
 
-.restart-btn{display:block;margin:1rem auto 0;background:transparent;border:1px solid var(--rule);color:var(--ink-faint);font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:8px 20px;cursor:pointer}
+.restart-btn{display:block;margin:0 auto;background:transparent;border:1px solid var(--rule);color:var(--ink-faint);font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:8px 18px;cursor:pointer}
 .restart-btn:hover{border-color:var(--ink-lt);color:var(--ink-lt)}
 </style>
 </head>
@@ -201,356 +166,326 @@ textarea.f-inp{resize:vertical;min-height:75px}
   <div class="hdr-inner">
     <div class="hdr-left">
       <p class="hdr-eye">DAN-IA · Formations</p>
-      <p class="hdr-title">Évaluation de vos besoins en formation</p>
-      <p class="hdr-sub">10 questions · résultat personnalisé en 3 minutes</p>
+      <p class="hdr-title">Évaluation de vos besoins</p>
+      <p class="hdr-sub">10 questions · résultat en 3 min</p>
     </div>
-    <a class="hdr-contact" href="mailto:dbenouaisch@gmail.com">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-      Nous contacter
+    <a class="hdr-cta" href="mailto:dbenouaisch@gmail.com">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+      Contact
     </a>
   </div>
 </header>
-<div class="prog-wrap"><div class="prog-fill" id="pf"></div></div>
+<div class="prog"><div class="prog-fill" id="pf"></div></div>
 
-<!-- MAIN -->
-<main class="main" id="main-qcm">
-  <div class="card" id="qcard">
-    <div class="card-accent" id="card-accent"></div>
-    <div class="theme-tag" id="theme-tag"></div>
-    <div class="q-inner">
-      <div class="q-counter" id="q-counter"></div>
-      <div class="q-text" id="q-text"></div>
-      <div class="opts" id="opts"></div>
+<!-- QCM -->
+<div class="wrap" id="qwrap">
+  <div id="qblock">
+    <div class="phase-row" id="phase-row">
+      <div class="phase-num" id="phase-num">01</div>
+      <div>
+        <div class="phase-lbl" id="phase-lbl">Thème 1</div>
+        <div class="phase-name" id="phase-name">Bureautique</div>
+      </div>
+    </div>
+    <div class="qcard" id="qcard">
+      <div class="qcard-bar" id="qcard-bar"></div>
+      <div class="qcard-inner">
+        <div class="q-ctr" id="q-ctr"></div>
+        <div class="q-txt" id="q-txt"></div>
+        <div class="opts" id="opts"></div>
+      </div>
     </div>
     <div class="nav">
-      <button class="btn btn-ghost" id="btn-prev" onclick="prev()">← Précédent</button>
-      <span class="step-txt" id="step-txt"></span>
-      <button class="btn btn-b" id="btn-next" onclick="next()" disabled>Suivant →</button>
+      <button class="btn btn-ghost" id="btn-prev" onclick="prev()">← Préc.</button>
+      <span class="step" id="step"></span>
+      <button class="btn btn-ink" id="btn-next" onclick="next()" disabled>Suivant →</button>
     </div>
   </div>
-</main>
+</div>
 
-<!-- RESULTS -->
-<main class="main" id="main-res" style="display:none;align-items:flex-start;padding-top:1.5rem;padding-bottom:2rem">
-  <div id="res" style="width:100%;max-width:680px">
-
+<!-- RÉSULTATS -->
+<div class="wrap" id="rwrap" style="display:none">
+  <div id="res">
     <div class="res-hero">
-      <p class="res-eye">Résultats de votre évaluation</p>
-      <p class="res-title" id="res-title"></p>
-      <p class="res-sub" id="res-sub"></p>
-      <div class="scores-grid">
+      <p class="r-eye">Vos résultats</p>
+      <p class="r-title" id="r-title"></p>
+      <p class="r-sub" id="r-sub"></p>
+      <div class="sgrid">
         <div class="sc sc-b">
-          <div class="sc-theme">01 · Bureautique</div>
+          <div class="sc-th">Bureautique</div>
           <div class="sc-num" id="sc-b">—<span class="sc-pct">%</span></div>
-          <div class="sc-bar-wrap"><div class="sc-bar" id="bar-b"></div></div>
+          <div class="sc-bar-w"><div class="sc-bar" id="bar-b"></div></div>
           <div class="sc-vd" id="lbl-b"></div>
         </div>
         <div class="sc sc-i">
-          <div class="sc-theme">02 · IA au quotidien</div>
+          <div class="sc-th">IA au quotidien</div>
           <div class="sc-num" id="sc-i">—<span class="sc-pct">%</span></div>
-          <div class="sc-bar-wrap"><div class="sc-bar" id="bar-i"></div></div>
+          <div class="sc-bar-w"><div class="sc-bar" id="bar-i"></div></div>
           <div class="sc-vd" id="lbl-i"></div>
         </div>
       </div>
     </div>
 
-    <div class="res-body">
-      <div class="conseil-block">
-        <p class="bl-eye">Conseil personnalisé</p>
-        <div class="bl-title" id="c-title"></div>
-        <div class="bl-body" id="c-body"></div>
-      </div>
-
-      <div class="theme-det det-b">
-        <div class="det-head" id="det-b-head"></div>
-        <div class="det-sep">Ce que vous gagnerez après la formation</div>
-        <ul class="apports" id="det-b-list"></ul>
-      </div>
-      <div class="theme-det det-i">
-        <div class="det-head" id="det-i-head"></div>
-        <div class="det-sep">Ce que vous gagnerez après la formation</div>
-        <ul class="apports" id="det-i-list"></ul>
-      </div>
-
-      <div class="contact-block">
-        <p class="res-eye" style="margin-bottom:.4rem">Échange sans engagement</p>
-        <h3>Souhaitez-vous être recontacté(e) ?</h3>
-        <p class="contact-sub">Dan Benouaisch vous répondra sous 24 h pour discuter de vos besoins.</p>
-        <div id="c-form">
-          <div class="fields">
-            <div>
-              <label class="f-lbl" for="f-name">Prénom et nom *</label>
-              <input class="f-inp" type="text" id="f-name" placeholder="Marie Dupont">
-            </div>
-            <div>
-              <label class="f-lbl" for="f-email">Adresse email *</label>
-              <input class="f-inp" type="email" id="f-email" placeholder="marie.dupont@entreprise.com">
-            </div>
-            <div>
-              <label class="f-lbl" for="f-note">Sujet spécifique (optionnel)</label>
-              <textarea class="f-inp" id="f-note" placeholder="Ex : formation pour mon équipe de 6, automatiser mon reporting…"></textarea>
-            </div>
-          </div>
-          <button class="sub-btn" id="f-btn" onclick="sendForm()">Envoyer mes résultats et être recontacté(e) →</button>
-          <div class="f-err" id="f-err"></div>
-        </div>
-        <div class="f-ok" id="f-ok">
-          <div class="ok-mark">✓</div>
-          <p class="ok-msg">Demande envoyée avec succès.</p>
-          <p class="ok-sub">Dan Benouaisch vous recontactera sous 24 h.</p>
-        </div>
-      </div>
-      <button class="restart-btn" onclick="restart()">↺ Recommencer l'évaluation</button>
+    <div class="r-section conseil-bl">
+      <p class="bl-eye">Conseil personnalisé</p>
+      <div class="bl-title" id="c-title"></div>
+      <div class="bl-body" id="c-body"></div>
     </div>
+
+    <div class="r-section det-b-bl">
+      <div class="det-head" id="dh-b"></div>
+      <div class="det-sep">Ce que vous gagnerez</div>
+      <ul class="aplist" id="ap-b"></ul>
+    </div>
+    <div class="r-section det-i-bl">
+      <div class="det-head" id="dh-i"></div>
+      <div class="det-sep">Ce que vous gagnerez</div>
+      <ul class="aplist" id="ap-i"></ul>
+    </div>
+
+    <div class="contact-bl">
+      <p class="r-eye" style="margin-bottom:.3rem">Échange sans engagement</p>
+      <h3>Souhaitez-vous être recontacté(e) ?</h3>
+      <p class="contact-sub">Dan Benouaisch vous répondra sous 24 h.</p>
+      <div id="c-form">
+        <div class="fields">
+          <div>
+            <label class="f-lbl" for="f-name">Prénom et nom *</label>
+            <input class="f-inp" type="text" id="f-name" placeholder="Marie Dupont">
+          </div>
+          <div>
+            <label class="f-lbl" for="f-email">Email *</label>
+            <input class="f-inp" type="email" id="f-email" placeholder="marie@entreprise.com">
+          </div>
+          <div>
+            <label class="f-lbl" for="f-note">Sujet spécifique (optionnel)</label>
+            <textarea class="f-inp" id="f-note" placeholder="Ex : formation pour mon équipe, automatiser mon reporting…"></textarea>
+          </div>
+        </div>
+        <button class="sub-btn" id="f-btn" onclick="sendForm()">Envoyer mes résultats et être recontacté(e) →</button>
+        <div class="f-err" id="f-err"></div>
+      </div>
+      <div class="f-ok" id="f-ok">
+        <div class="ok-mark">✓</div>
+        <p class="ok-msg">Demande envoyée !</p>
+        <p class="ok-sub">Dan Benouaisch vous recontactera sous 24 h.</p>
+      </div>
+    </div>
+
+    <button class="restart-btn" onclick="restart()">↺ Recommencer</button>
   </div>
-</main>
+</div>
 
 <script>
-const FORMSPREE = "https://formspree.io/f/maqzgyqb";
-
-const QS = [
-  // 5 × BUREAUTIQUE
-  { t:"b", q:"Comment organisez-vous vos fichiers et dossiers au quotidien ?", o:[
-    { l:"Arborescence claire — je retrouve tout en quelques secondes", s:0 },
-    { l:"Organisation approximative — je perds parfois du temps à chercher", s:1 },
-    { l:"Fichiers posés sur le bureau ou dans les téléchargements", s:2 },
-    { l:"Pas de méthode — le désordre me coûte du temps chaque jour", s:3 }
+const FORMSPREE="https://formspree.io/f/maqzgyqb";
+const QS=[
+  {t:"b",q:"Comment organisez-vous vos fichiers et dossiers au quotidien ?",o:[
+    {l:"Arborescence claire — je retrouve tout en quelques secondes",s:0},
+    {l:"Organisation approximative — je perds parfois du temps",s:1},
+    {l:"Fichiers posés sur le bureau ou dans les téléchargements",s:2},
+    {l:"Pas de méthode — le désordre me coûte du temps chaque jour",s:3}
   ]},
-  { t:"b", q:"Quelle est votre aisance avec le tableur (Excel, Google Sheets…) ?", o:[
-    { l:"Formules avancées, tableaux croisés, graphiques dynamiques", s:0 },
-    { l:"SOMME, MOYENNE et quelques formules simples", s:1 },
-    { l:"Saisie et mise en forme uniquement", s:2 },
-    { l:"Très peu à l'aise — j'évite le tableur dès que possible", s:3 }
+  {t:"b",q:"Quelle est votre aisance avec le tableur (Excel, Google Sheets…) ?",o:[
+    {l:"Formules avancées, tableaux croisés, graphiques dynamiques",s:0},
+    {l:"SOMME, MOYENNE et quelques formules simples",s:1},
+    {l:"Saisie et mise en forme uniquement",s:2},
+    {l:"Très peu à l'aise — j'évite le tableur dès que possible",s:3}
   ]},
-  { t:"b", q:"Vos documents professionnels (rapports, comptes-rendus, présentations) sont-ils clairs, lisibles et engageants ?", o:[
-    { l:"Oui — mes documents sont structurés, bien mis en forme et faciles à lire", s:0 },
-    { l:"Plutôt oui, mais je manque de méthode pour les rendre vraiment percutants", s:1 },
-    { l:"Mes documents sont fonctionnels mais peu attrayants visuellement", s:2 },
-    { l:"Non — je produis des documents bruts, sans mise en forme réelle", s:3 }
+  {t:"b",q:"Vos documents (rapports, comptes-rendus, présentations) sont-ils clairs, lisibles et engageants ?",o:[
+    {l:"Oui — structurés, bien mis en forme et faciles à lire",s:0},
+    {l:"Plutôt oui, mais je manque de méthode pour les rendre percutants",s:1},
+    {l:"Fonctionnels mais peu attrayants visuellement",s:2},
+    {l:"Non — des documents bruts, sans mise en forme réelle",s:3}
   ]},
-  { t:"b", q:"Utilisez-vous des outils collaboratifs cloud (OneDrive, SharePoint, Google Drive…) ?", o:[
-    { l:"Oui — co-édition, partage et gestion fine des droits", s:0 },
-    { l:"Oui — pour stocker et partager des fichiers basiquement", s:1 },
-    { l:"Rarement — je préfère les pièces jointes par e-mail", s:2 },
-    { l:"Non — je ne sais pas vraiment comment ça fonctionne", s:3 }
+  {t:"b",q:"Utilisez-vous des outils collaboratifs cloud (OneDrive, SharePoint, Google Drive…) ?",o:[
+    {l:"Oui — co-édition, partage et gestion fine des droits",s:0},
+    {l:"Oui — pour stocker et partager basiquement",s:1},
+    {l:"Rarement — je préfère les pièces jointes par e-mail",s:2},
+    {l:"Non — je ne sais pas vraiment comment ça fonctionne",s:3}
   ]},
-  { t:"b", q:"Avez-vous déjà automatisé une tâche bureautique répétitive sans coder ?", o:[
-    { l:"Oui, régulièrement — macros, règles, modèles automatiques", s:0 },
-    { l:"Une ou deux fois, de manière basique", s:1 },
-    { l:"Non — mais j'aimerais savoir comment faire", s:2 },
-    { l:"Non — je ne savais pas que c'était possible", s:3 }
+  {t:"b",q:"Avez-vous déjà automatisé une tâche bureautique répétitive sans coder ?",o:[
+    {l:"Oui, régulièrement — macros, règles, modèles automatiques",s:0},
+    {l:"Une ou deux fois, de manière basique",s:1},
+    {l:"Non — mais j'aimerais savoir comment faire",s:2},
+    {l:"Non — je ne savais pas que c'était possible",s:3}
   ]},
-  // 5 × IA
-  { t:"i", q:"Utilisez-vous un outil d'IA générative (ChatGPT, Copilot, Gemini…) dans votre travail ?", o:[
-    { l:"Tous les jours — c'est un outil central de mon activité", s:0 },
-    { l:"Quelques fois par semaine pour certaines tâches", s:1 },
-    { l:"J'ai testé une ou deux fois sans prendre l'habitude", s:2 },
-    { l:"Non — je n'en utilise pas", s:3 }
+  {t:"i",q:"Utilisez-vous un outil d'IA générative (ChatGPT, Copilot, Gemini…) dans votre travail ?",o:[
+    {l:"Tous les jours — c'est un outil central de mon activité",s:0},
+    {l:"Quelques fois par semaine pour certaines tâches",s:1},
+    {l:"J'ai testé une ou deux fois sans prendre l'habitude",s:2},
+    {l:"Non — je n'en utilise pas",s:3}
   ]},
-  { t:"i", q:"Savez-vous rédiger un prompt efficace pour obtenir un résultat directement utilisable ?", o:[
-    { l:"Oui — j'adapte le rôle, le ton, le format et le contexte", s:0 },
-    { l:"Je pose des questions simples et retravaille le résultat", s:1 },
-    { l:"Je ne sais pas vraiment comment bien formuler", s:2 },
-    { l:"Je ne connais pas le concept de prompt", s:3 }
+  {t:"i",q:"Savez-vous rédiger un prompt efficace pour obtenir un résultat directement utilisable ?",o:[
+    {l:"Oui — j'adapte le rôle, le ton, le format et le contexte",s:0},
+    {l:"Je pose des questions simples et retravaille le résultat",s:1},
+    {l:"Je ne sais pas vraiment comment bien formuler",s:2},
+    {l:"Je ne connais pas le concept de prompt",s:3}
   ]},
-  { t:"i", q:"Avez-vous utilisé l'IA pour rédiger ou analyser des documents professionnels ?", o:[
-    { l:"Oui — e-mails, rapports, synthèses au quotidien", s:0 },
-    { l:"Quelques fois — surtout pour corriger ou reformuler", s:1 },
-    { l:"Non — mais j'y pense souvent", s:2 },
-    { l:"Non — je fais tout moi-même sans aide IA", s:3 }
+  {t:"i",q:"Avez-vous utilisé l'IA pour rédiger ou analyser des documents professionnels ?",o:[
+    {l:"Oui — e-mails, rapports, synthèses au quotidien",s:0},
+    {l:"Quelques fois — surtout pour corriger ou reformuler",s:1},
+    {l:"Non — mais j'y pense souvent",s:2},
+    {l:"Non — je fais tout moi-même sans aide IA",s:3}
   ]},
-  { t:"i", q:"Connaissez-vous les risques liés à l'IA en entreprise (RGPD, données confidentielles, hallucinations…) ?", o:[
-    { l:"Oui — j'ai des pratiques établies pour un usage sécurisé", s:0 },
-    { l:"J'en ai entendu parler sans être certain(e) de mes pratiques", s:1 },
-    { l:"Peu — j'utilise sans trop me poser de questions", s:2 },
-    { l:"Non — je ne vois pas quels risques cela pose", s:3 }
+  {t:"i",q:"Connaissez-vous les risques liés à l'IA en entreprise (RGPD, données, hallucinations…) ?",o:[
+    {l:"Oui — j'ai des pratiques établies pour un usage sécurisé",s:0},
+    {l:"J'en ai entendu parler sans être certain(e) de mes pratiques",s:1},
+    {l:"Peu — j'utilise sans trop me poser de questions",s:2},
+    {l:"Non — je ne vois pas quels risques cela pose",s:3}
   ]},
-  { t:"i", q:"Combien d'heures par semaine passez-vous sur des tâches répétitives à faible valeur ajoutée ?", o:[
-    { l:"Moins de 2 h — j'ai déjà optimisé mes méthodes", s:0 },
-    { l:"Entre 2 et 5 heures", s:1 },
-    { l:"Entre 5 et 10 heures", s:2 },
-    { l:"Plus de 10 h — c'est une vraie source de frustration", s:3 }
+  {t:"i",q:"Combien d'heures/semaine passez-vous sur des tâches répétitives à faible valeur ajoutée ?",o:[
+    {l:"Moins de 2 h — j'ai déjà optimisé mes méthodes",s:0},
+    {l:"Entre 2 et 5 heures",s:1},
+    {l:"Entre 5 et 10 heures",s:2},
+    {l:"Plus de 10 h — c'est une vraie source de frustration",s:3}
   ]}
 ];
+const APB=["Arborescence claire et méthode de fichiers reproductible","Formules tableur : SI, RECHERCHEV, tableaux croisés","Documents structurés, lisibles et visuellement percutants","Collaboration cloud : co-édition, partage et droits d'accès","Premières automatisations bureautiques sans coder"];
+const API=["Prompts efficaces pour chaque situation professionnelle","Rédaction augmentée : e-mails, rapports 2× plus vite","Analyse de documents et extraction d'informations clés","Usage IA responsable et conforme RGPD en entreprise","Réduction mesurable des tâches répétitives à faible valeur"];
 
-const AP_B = [
-  "Arborescence de fichiers claire et méthode reproductible au quotidien",
-  "Formules tableur opérationnelles : SI, RECHERCHEV, tableaux croisés",
-  "Documents professionnels structurés, lisibles et visuellement percutants",
-  "Collaboration cloud fluide : co-édition, partage, droits d'accès",
-  "Premières automatisations bureautiques sans une ligne de code"
-];
-const AP_I = [
-  "Prompts structurés et efficaces pour chaque situation professionnelle",
-  "Rédaction augmentée : e-mails, rapports, propositions 2× plus vite",
-  "Analyse de documents et extraction d'informations clés par l'IA",
-  "Cadre d'usage responsable et conforme RGPD en entreprise",
-  "Réduction mesurable des tâches répétitives à faible valeur ajoutée"
-];
+let cur=0,ans=new Array(10).fill(null),gSb=0,gSi=0,gConseil="";
 
-let cur = 0, ans = new Array(10).fill(null);
-let gSb = 0, gSi = 0, gConseil = "";
-
-function themeVars(isI) {
-  return isI
-    ? { c:"var(--i)", pale:"var(--i-pale)", btnNext:"btn-i", btnGo:"btn-i-go", tagColor:"color:var(--i);border-color:var(--i)", tagText:"02 · IA au quotidien" }
-    : { c:"var(--b)", pale:"var(--b-pale)", btnNext:"btn-b", btnGo:"btn-b-go", tagColor:"color:var(--b);border-color:var(--b)", tagText:"01 · Bureautique" };
-}
-
-function render() {
-  const q = QS[cur], isI = q.t === "i", tv = themeVars(isI);
-  document.getElementById("pf").style.width = Math.round((cur / 10) * 100) + "%";
-  document.getElementById("pf").style.background = isI ? "var(--i)" : "var(--b)";
-  document.getElementById("card-accent").style.background = tv.c;
-  const tag = document.getElementById("theme-tag");
-  tag.style.cssText = tv.tagColor;
-  tag.textContent = tv.tagText;
-  const ti = isI ? cur - 5 : cur;
-  document.getElementById("q-counter").textContent = "Question " + (ti + 1) + " sur 5";
-  document.getElementById("q-text").textContent = q.q;
-  // option colors via CSS vars on parent
-  const oc = document.getElementById("opts");
-  oc.style.setProperty("--hover-c", tv.c);
-  oc.style.setProperty("--hover-bg", tv.pale);
-  oc.style.setProperty("--sel-c", tv.c);
-  oc.style.setProperty("--sel-bg", tv.pale);
-  oc.innerHTML = "";
-  q.o.forEach((o, i) => {
-    const lbl = document.createElement("label");
-    lbl.className = "opt" + (ans[cur] === i ? " sel" : "");
-    lbl.innerHTML = `<span class="radio"></span><span class="opt-text">${o.l}</span>`;
-    lbl.addEventListener("click", () => pick(i));
-    oc.appendChild(lbl);
+function rdr(){
+  const q=QS[cur],isI=q.t==="i";
+  const col=isI?"var(--i)":"var(--b)";
+  document.getElementById("pf").style.width=Math.round((cur/10)*100)+"%";
+  document.getElementById("pf").style.background=col;
+  const pr=document.getElementById("phase-row");
+  pr.className="phase-row "+(isI?"theme-i":"theme-b");
+  document.getElementById("qcard").className="qcard "+(isI?"theme-i":"theme-b");
+  document.getElementById("phase-num").textContent=isI?"02":"01";
+  document.getElementById("phase-lbl").textContent=isI?"Thème 2":"Thème 1";
+  document.getElementById("phase-name").textContent=isI?"IA au quotidien":"Bureautique";
+  const ti=isI?cur-5:cur;
+  document.getElementById("q-ctr").textContent="Question "+(ti+1)+" sur 5";
+  document.getElementById("q-txt").textContent=q.q;
+  const oc=document.getElementById("opts");
+  oc.innerHTML="";
+  q.o.forEach((o,i)=>{
+    const l=document.createElement("label");
+    l.className="opt"+(ans[cur]===i?" sel":"");
+    l.innerHTML=`<span class="radio"></span><span class="opt-text">${o.l}</span>`;
+    l.addEventListener("click",()=>pick(i));
+    oc.appendChild(l);
   });
-  const isLast = cur === 9;
-  const bn = document.getElementById("btn-next");
-  bn.textContent = isLast ? "Voir mes résultats →" : "Suivant →";
-  bn.className = "btn " + (isLast ? tv.btnGo : tv.btnNext);
-  bn.disabled = ans[cur] === null;
-  document.getElementById("btn-prev").disabled = cur === 0;
-  document.getElementById("step-txt").textContent = (cur + 1) + " / 10";
+  const isL=cur===9;
+  const bn=document.getElementById("btn-next");
+  bn.textContent=isL?"Voir mes résultats →":"Suivant →";
+  bn.className="btn "+(isL?(isI?"btn-go-i":"btn-go-b"):"btn-ink");
+  bn.disabled=ans[cur]===null;
+  document.getElementById("btn-prev").disabled=cur===0;
+  document.getElementById("step").textContent=(cur+1)+" / 10";
 }
+function pick(i){
+  ans[cur]=i;
+  document.querySelectorAll(".opt").forEach((el,idx)=>el.classList.toggle("sel",idx===i));
+  document.getElementById("btn-next").disabled=false;
+}
+function next(){if(ans[cur]===null)return;cur<9?(cur++,rdr()):showRes();}
+function prev(){if(cur>0){cur--;rdr();}}
 
-function pick(i) {
-  ans[cur] = i;
-  document.querySelectorAll(".opt").forEach((el, idx) => el.classList.toggle("sel", idx === i));
-  document.getElementById("btn-next").disabled = false;
+function sc(th){
+  const st=th==="b"?0:5;let s=0,m=0;
+  for(let i=st;i<st+5;i++){if(ans[i]!==null)s+=QS[i].o[ans[i]].s;m+=3;}
+  return Math.round((s/m)*100);
 }
-function next() { if (ans[cur] === null) return; cur < 9 ? (cur++, render()) : showRes(); }
-function prev() { if (cur > 0) { cur--; render(); } }
-
-function score(th) {
-  const st = th === "b" ? 0 : 5;
-  let s = 0, m = 0;
-  for (let i = st; i < st + 5; i++) { if (ans[i] !== null) s += QS[i].o[ans[i]].s; m += 3; }
-  return Math.round((s / m) * 100);
+function lv(s){return s>=60?"high":s>=28?"med":"low";}
+function vTxt(s){
+  if(s>=60)return"Fort besoin identifié";
+  if(s>=28)return"Besoin partiel — modules ciblés";
+  return"Bonne maîtrise actuelle";
 }
-function lv(s) { return s >= 60 ? "high" : s >= 28 ? "med" : "low"; }
-function vTxt(s) {
-  if (s >= 60) return "Fort besoin de formation identifié";
-  if (s >= 28) return "Besoin partiel — modules ciblés recommandés";
-  return "Bonne maîtrise — formation avancée possible";
+function buildDet(th,s){
+  const isI=th==="i",st=isI?5:0,ap=isI?API:APB,lev=lv(s);
+  const sorted=[...Array(5).keys()].map(i=>({s:ans[st+i]!==null?QS[st+i].o[ans[st+i]].s:0,i})).sort((a,b)=>b.s-a.s).slice(0,3).map(x=>x.i);
+  const vc={high:"vhigh",med:isI?"vmed-i":"vmed-b",low:"vlow"}[lev];
+  const vl={high:"Fortement recommandée",med:"Recommandée",low:"Optionnelle"}[lev];
+  document.getElementById(isI?"dh-i":"dh-b").innerHTML=
+    `<div class="det-name">${isI?"02 · IA au quotidien":"01 · Bureautique"}</div><div class="vpill ${vc}">${vl}</div>`;
+  document.getElementById(isI?"ap-i":"ap-b").innerHTML=
+    sorted.map(i=>`<li><span class="${isI?"arr-i":"arr-b"}">→</span><span>${ap[i]}</span></li>`).join("");
 }
-
-function buildDet(th, s) {
-  const isI = th === "i", st = isI ? 5 : 0;
-  const ap = isI ? AP_I : AP_B, lev = lv(s);
-  const sorted = [...Array(5).keys()]
-    .map(i => ({ s: ans[st + i] !== null ? QS[st + i].o[ans[st + i]].s : 0, i }))
-    .sort((a, b) => b.s - a.s).slice(0, 3).map(x => x.i);
-  const vclass = lev === "high" ? "vhigh" : lev === "med" ? (isI ? "vmed-i" : "vmed-b") : "vlow";
-  const vlbl = { high:"Formation fortement recommandée", med:"Formation recommandée", low:"Formation optionnelle" }[lev];
-  document.getElementById(isI ? "det-i-head" : "det-b-head").innerHTML =
-    `<div class="det-name">${isI ? "02 · Formation IA au quotidien" : "01 · Formation Bureautique"}</div>
-     <div class="vpill ${vclass}">${vlbl}</div>`;
-  const arrClass = isI ? "arr-i" : "arr-b";
-  document.getElementById(isI ? "det-i-list" : "det-b-list").innerHTML =
-    sorted.map(i => `<li><span class="${arrClass}">→</span><span>${ap[i]}</span></li>`).join("");
+function showRes(){
+  document.getElementById("qwrap").style.display="none";
+  document.getElementById("rwrap").style.display="block";
+  document.getElementById("res").style.display="block";
+  document.getElementById("pf").style.width="100%";
+  document.getElementById("pf").style.background="linear-gradient(90deg,var(--b),var(--i))";
+  gSb=sc("b");gSi=sc("i");
+  const avg=Math.round((gSb+gSi)/2);
+  setTimeout(()=>{
+    document.getElementById("sc-b").innerHTML=gSb+`<span class="sc-pct">%</span>`;
+    document.getElementById("bar-b").style.width=gSb+"%";
+    document.getElementById("sc-i").innerHTML=gSi+`<span class="sc-pct">%</span>`;
+    document.getElementById("bar-i").style.width=gSi+"%";
+  },200);
+  document.getElementById("lbl-b").textContent=vTxt(gSb);
+  document.getElementById("lbl-i").textContent=vTxt(gSi);
+  const lb=lv(gSb),li=lv(gSi);
+  let rt,rs;
+  if(avg>=55){rt="Votre potentiel de progression est significatif";rs="Les formations DAN-IA vous apporteront des gains mesurables dès les premières semaines.";}
+  else if(avg>=25){rt="De bonnes bases à renforcer sur des points ciblés";rs="Quelques modules spécifiques vous permettront d'accélérer votre efficacité.";}
+  else{rt="Votre niveau est solide — la formation avancée vous fera progresser";rs="Vous maîtrisez l'essentiel. La Construction d'agent est l'étape suivante.";}
+  document.getElementById("r-title").textContent=rt;
+  document.getElementById("r-sub").textContent=rs;
+  let ct,cx;
+  if(lb==="high"&&li==="high"){ct="Le Pack Transformation est fait pour vous";cx="Fort potentiel des deux côtés. Le Pack (3 jours : Bureautique + IA + Construction d'agent) transforme vos pratiques en profondeur et inclut le déploiement d'un premier agent métier.";}
+  else if(lb==="high"&&li!=="high"){ct="Priorité à la formation Bureautique";cx="Une journée pour installer des réflexes immédiats : fichiers, tableur, documents de qualité, tableaux de bord. Complétez ensuite avec la formation IA pour un effet multiplicateur.";}
+  else if(lb!=="high"&&li==="high"){ct="La formation IA est votre priorité";cx="Votre base bureautique est solide — excellent point de départ. La formation IA décuplera votre efficacité : rédaction augmentée, automatisation no-code, usage sécurisé.";}
+  else if(lb==="med"||li==="med"){ct="Des modules ciblés pour combler vos lacunes";cx="Une journée de formation suffit pour installer des réflexes durables là où vous en avez besoin.";}
+  else{ct="Vous êtes prêt(e) pour le niveau avancé";cx="La formation Construction d'agent vous permettra de connecter vos outils, déployer un agent métier et automatiser des scénarios complexes sans coder.";}
+  document.getElementById("c-title").textContent=ct;
+  document.getElementById("c-body").textContent=cx;
+  gConseil=ct;
+  buildDet("b",gSb);buildDet("i",gSi);
 }
-
-function showRes() {
-  document.getElementById("main-qcm").style.display = "none";
-  document.getElementById("main-res").style.display = "flex";
-  document.getElementById("pf").style.width = "100%";
-  document.getElementById("pf").style.background = "linear-gradient(90deg,var(--b),var(--i))";
-  gSb = score("b"); gSi = score("i");
-  const avg = Math.round((gSb + gSi) / 2);
-  setTimeout(() => {
-    document.getElementById("sc-b").innerHTML = gSb + `<span class="sc-pct">%</span>`;
-    document.getElementById("bar-b").style.width = gSb + "%";
-    document.getElementById("sc-i").innerHTML = gSi + `<span class="sc-pct">%</span>`;
-    document.getElementById("bar-i").style.width = gSi + "%";
-  }, 200);
-  document.getElementById("lbl-b").textContent = vTxt(gSb);
-  document.getElementById("lbl-i").textContent = vTxt(gSi);
-  const lb = lv(gSb), li = lv(gSi);
-  let rt, rs;
-  if (avg >= 55) { rt = "Votre potentiel de progression est significatif"; rs = "Les formations DAN-IA vous apporteront des gains mesurables dès les premières semaines."; }
-  else if (avg >= 25) { rt = "Vous avez de bonnes bases à renforcer"; rs = "Quelques modules ciblés vous permettront d'accélérer sensiblement votre efficacité."; }
-  else { rt = "Votre niveau est solide — une formation avancée vous fera progresser encore"; rs = "Vous maîtrisez l'essentiel. La formation Construction d'agent est l'étape suivante."; }
-  document.getElementById("res-title").textContent = rt;
-  document.getElementById("res-sub").textContent = rs;
-  let ct, cx;
-  if (lb === "high" && li === "high") { ct = "Le Pack Transformation est fait pour vous"; cx = "Vos résultats montrent un fort potentiel d'amélioration sur les deux thèmes. Le Pack Transformation — 3 jours (Bureautique, IA, Construction d'agent) — vous permettra de transformer vos pratiques et de déployer un premier agent métier."; }
-  else if (lb === "high" && li !== "high") { ct = "Priorité à la formation Bureautique"; cx = "Vos pratiques bureautiques laissent une marge importante. Une journée suffit pour installer des réflexes immédiats sur les fichiers, le tableur, les tableaux de bord et la qualité documentaire. Complétez ensuite avec la formation IA pour un effet multiplicateur."; }
-  else if (lb !== "high" && li === "high") { ct = "La formation IA au quotidien est votre priorité"; cx = "Vous maîtrisez votre environnement bureautique — excellent point de départ. La formation IA vous permettra de décupler votre efficacité : rédaction augmentée, automatisation no-code, usage sécurisé. Les gains les plus forts (+35 %) concernent précisément les profils avec une bonne base bureautique."; }
-  else if (lb === "med" || li === "med") { ct = "Des modules ciblés pour combler vos lacunes"; cx = "Vous avez de bonnes bases. Quelques modules vous feront gagner un temps précieux au quotidien. Une journée de formation suffit pour installer des réflexes durables."; }
-  else { ct = "Vous êtes prêt(e) pour le niveau avancé"; cx = "Votre maîtrise bureautique et IA est déjà solide. La formation Construction d'agent vous permettra de franchir un nouveau palier : connecter vos outils, déployer un agent métier et automatiser des scénarios complexes sans coder."; }
-  document.getElementById("c-title").textContent = ct;
-  document.getElementById("c-body").textContent = cx;
-  gConseil = ct;
-  buildDet("b", gSb); buildDet("i", gSi);
-}
-
-function sendForm() {
-  const name = document.getElementById("f-name").value.trim();
-  const email = document.getElementById("f-email").value.trim();
-  const note = document.getElementById("f-note").value.trim();
-  const errEl = document.getElementById("f-err");
-  errEl.style.display = "none";
-  if (!name) { errEl.textContent = "Veuillez saisir votre nom."; errEl.style.display = "block"; return; }
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = "Adresse email invalide."; errEl.style.display = "block"; return; }
-  const bLines = QS.slice(0, 5).map((q, i) => (i + 1) + ". " + q.q + "\n   → " + (ans[i] !== null ? q.o[ans[i]].l : "Sans réponse")).join("\n\n");
-  const iLines = QS.slice(5, 10).map((q, i) => (i + 1) + ". " + q.q + "\n   → " + (ans[i + 5] !== null ? q.o[ans[i + 5]].l : "Sans réponse")).join("\n\n");
-  const btn = document.getElementById("f-btn");
-  btn.disabled = true; btn.textContent = "Envoi en cours…";
-  fetch(FORMSPREE, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "Accept": "application/json" },
-    body: JSON.stringify({
-      _replyto: email, _subject: "Nouveau lead QCM DAN-IA — " + name,
-      "Nom": name, "Email": email,
-      "Score Bureautique": gSb + "%", "Score IA au quotidien": gSi + "%",
-      "Conseil personnalisé": gConseil,
-      "Note / sujet": note || "Aucune note",
-      "Réponses Bureautique": bLines, "Réponses IA au quotidien": iLines
+function sendForm(){
+  const name=document.getElementById("f-name").value.trim();
+  const email=document.getElementById("f-email").value.trim();
+  const note=document.getElementById("f-note").value.trim();
+  const err=document.getElementById("f-err");
+  err.style.display="none";
+  if(!name){err.textContent="Veuillez saisir votre nom.";err.style.display="block";return;}
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent="Email invalide.";err.style.display="block";return;}
+  const bL=QS.slice(0,5).map((q,i)=>(i+1)+". "+q.q+"\n   → "+(ans[i]!==null?q.o[ans[i]].l:"?")).join("\n\n");
+  const iL=QS.slice(5,10).map((q,i)=>(i+1)+". "+q.q+"\n   → "+(ans[i+5]!==null?q.o[ans[i+5]].l:"?")).join("\n\n");
+  const btn=document.getElementById("f-btn");
+  btn.disabled=true;btn.textContent="Envoi en cours…";
+  fetch(FORMSPREE,{
+    method:"POST",
+    headers:{"Content-Type":"application/json","Accept":"application/json"},
+    body:JSON.stringify({
+      _replyto:email,_subject:"Lead QCM DAN-IA — "+name,
+      "Nom":name,"Email":email,
+      "Score Bureautique":gSb+"%","Score IA":gSi+"%",
+      "Conseil":gConseil,"Note":note||"—",
+      "Réponses Bureautique":bL,"Réponses IA":iL
     })
   })
-  .then(r => r.json())
-  .then(d => {
-    if (d.ok) { document.getElementById("c-form").style.display = "none"; document.getElementById("f-ok").style.display = "block"; }
+  .then(r=>r.json())
+  .then(d=>{
+    if(d.ok){document.getElementById("c-form").style.display="none";document.getElementById("f-ok").style.display="block";}
     else throw new Error();
   })
-  .catch(() => {
-    btn.disabled = false; btn.textContent = "Envoyer mes résultats et être recontacté(e) →";
-    errEl.textContent = "Une erreur est survenue. Réessayez ou écrivez à dbenouaisch@gmail.com";
-    errEl.style.display = "block";
+  .catch(()=>{
+    btn.disabled=false;btn.textContent="Envoyer mes résultats et être recontacté(e) →";
+    err.textContent="Erreur. Réessayez ou écrivez à dbenouaisch@gmail.com";
+    err.style.display="block";
   });
 }
-
-function restart() {
-  cur = 0; ans = new Array(10).fill(null); gSb = 0; gSi = 0; gConseil = "";
-  document.getElementById("main-res").style.display = "none";
-  document.getElementById("main-qcm").style.display = "flex";
-  document.getElementById("c-form").style.display = "block";
-  document.getElementById("f-ok").style.display = "none";
-  document.getElementById("f-err").style.display = "none";
-  ["f-name","f-email","f-note"].forEach(id => document.getElementById(id).value = "");
-  const btn = document.getElementById("f-btn");
-  btn.disabled = false; btn.textContent = "Envoyer mes résultats et être recontacté(e) →";
-  render();
+function restart(){
+  cur=0;ans=new Array(10).fill(null);gSb=0;gSi=0;gConseil="";
+  document.getElementById("rwrap").style.display="none";
+  document.getElementById("qwrap").style.display="block";
+  document.getElementById("c-form").style.display="block";
+  document.getElementById("f-ok").style.display="none";
+  document.getElementById("f-err").style.display="none";
+  ["f-name","f-email","f-note"].forEach(id=>document.getElementById(id).value="");
+  const btn=document.getElementById("f-btn");
+  btn.disabled=false;btn.textContent="Envoyer mes résultats et être recontacté(e) →";
+  rdr();
 }
-render();
+rdr();
 </script>
 </body>
 </html>
