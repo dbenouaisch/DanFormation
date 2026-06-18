@@ -447,19 +447,106 @@ function sendForm(){
   err.style.display="none";
   if(!name){err.textContent="Veuillez saisir votre nom.";err.style.display="block";return;}
   if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent="Email invalide.";err.style.display="block";return;}
-  const bL=QS.slice(0,5).map((q,i)=>(i+1)+". "+q.q+"\n   → "+(ans[i]!==null?q.o[ans[i]].l:"?")).join("\n\n");
-  const iL=QS.slice(5,10).map((q,i)=>(i+1)+". "+q.q+"\n   → "+(ans[i+5]!==null?q.o[ans[i+5]].l:"?")).join("\n\n");
+
+  // Verdict texte complet par score
+  function verdictFull(s){
+    if(s>=60)return"Fort besoin de formation identifié — des lacunes significatives limitent l'efficacité au quotidien.";
+    if(s>=28)return"Besoin partiel — de bonnes bases existent mais des modules ciblés apporteraient un gain rapide.";
+    return"Bonne maîtrise actuelle — le niveau est solide, une formation avancée permettrait d'aller plus loin.";
+  }
+
+  // Apports personnalisés (top 3 par score)
+  function getApports(th){
+    const isI=th==="i",st=isI?5:0,ap=isI?API:APB;
+    return [...Array(5).keys()]
+      .map(i=>({s:ans[st+i]!==null?QS[st+i].o[ans[st+i]].s:0,i}))
+      .sort((a,b)=>b.s-a.s).slice(0,3).map(x=>"• "+ap[x.i]).join("\n");
+  }
+
+  // Conseil complet (titre + texte)
+  const lb=lv(gSb),li=lv(gSi);
+  let conseilTxt="";
+  if(lb==="high"&&li==="high")conseilTxt="Fort potentiel des deux côtés. Le Pack (3 jours : Bureautique + IA + Construction d'agent) transforme vos pratiques en profondeur et inclut le déploiement d'un premier agent métier.";
+  else if(lb==="high"&&li!=="high")conseilTxt="Une journée pour installer des réflexes immédiats : fichiers, tableur, documents de qualité, tableaux de bord. Complétez ensuite avec la formation IA pour un effet multiplicateur.";
+  else if(lb!=="high"&&li==="high")conseilTxt="Votre base bureautique est solide — excellent point de départ. La formation IA décuplera votre efficacité : rédaction augmentée, automatisation no-code, usage sécurisé.";
+  else if(lb==="med"||li==="med")conseilTxt="Une journée de formation suffit pour installer des réflexes durables là où vous en avez besoin.";
+  else conseilTxt="La formation Construction d'agent vous permettra de connecter vos outils, déployer un agent métier et automatiser des scénarios complexes sans coder.";
+
+  // Réponses détaillées
+  const bLines=QS.slice(0,5).map((q,i)=>"Q"+(i+1)+" — "+q.q+"\n        Réponse : "+(ans[i]!==null?q.o[ans[i]].l:"Non renseigné")).join("\n\n        ");
+  const iLines=QS.slice(5,10).map((q,i)=>"Q"+(i+1)+" — "+q.q+"\n        Réponse : "+(ans[i+5]!==null?q.o[ans[i+5]].l:"Non renseigné")).join("\n\n        ");
+
+  // Corps du mail en texte structuré (Formspree l'envoie tel quel)
+  const mailBody=
+`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  NOUVEAU LEAD — QCM DAN-IA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Nom         : ${name}
+  Email       : ${email}
+  Sujet       : ${note||"Aucune note"}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  RÉSULTATS DU QCM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  01 · Bureautique       ${gSb}%
+  ${verdictFull(gSb)}
+
+  Apports prioritaires post-formation :
+  ${getApports("b")}
+
+  ───────────────────────────────────────
+
+  02 · IA au quotidien   ${gSi}%
+  ${verdictFull(gSi)}
+
+  Apports prioritaires post-formation :
+  ${getApports("i")}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  CONSEIL PERSONNALISÉ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ${gConseil}
+
+  ${conseilTxt}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  RÉPONSES DÉTAILLÉES — BUREAUTIQUE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        ${bLines}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  RÉPONSES DÉTAILLÉES — IA AU QUOTIDIEN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        ${iLines}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  DAN-IA · dan-ia.fr · dbenouaisch@gmail.com
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+
   const btn=document.getElementById("f-btn");
   btn.disabled=true;btn.textContent="Envoi en cours…";
   fetch(FORMSPREE,{
     method:"POST",
     headers:{"Content-Type":"application/json","Accept":"application/json"},
     body:JSON.stringify({
-      _replyto:email,_subject:"Lead QCM DAN-IA — "+name,
-      "Nom":name,"Email":email,
-      "Score Bureautique":gSb+"%","Score IA":gSi+"%",
-      "Conseil":gConseil,"Note":note||"—",
-      "Réponses Bureautique":bL,"Réponses IA":iL
+      _replyto:email,
+      _subject:"🎯 Nouveau lead QCM DAN-IA — "+name+" (B:"+gSb+"% / IA:"+gSi+"%)",
+      "Nom complet":name,
+      "Email":email,
+      "Sujet spécifique":note||"Aucune note",
+      "Score Bureautique":gSb+"%  — "+verdictFull(gSb),
+      "Score IA au quotidien":gSi+"%  — "+verdictFull(gSi),
+      "Conseil personnalisé":gConseil+" — "+conseilTxt,
+      "Apports Bureautique":getApports("b"),
+      "Apports IA":getApports("i"),
+      "Réponses Bureautique":bLines,
+      "Réponses IA au quotidien":iLines,
+      "message":mailBody
     })
   })
   .then(r=>r.json())
